@@ -1,0 +1,225 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<style type="text/css">
+input{width:100%;
+
+     width: 100%;
+    outline: none;
+    border: none;
+}
+table{width: 100%;}
+td{width: 10%}
+
+</style>
+   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/xlsx.full.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.13.5/jszip.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--
+ <script type="text/javascript" src="js/xlsx.full.min.js"></script>
+<script type="text/javascript" src="js/jszip.js"></script>
+<script src="js/jquery-3.3.1.min.js"></script>-->
+<script type="text/javascript">
+    function Upload() {
+        //Reference the FileUpload element.
+        var fileUpload = document.getElementById("fileUpload");
+ 
+        //Validate whether File is valid Excel file.
+        var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.xls|.xlsx)$/;
+        if (regex.test(fileUpload.value.toLowerCase())) {
+            if (typeof (FileReader) != "undefined") {
+                var reader = new FileReader();
+ 
+                //For Browsers other than IE.
+                if (reader.readAsBinaryString) {
+                    reader.onload = function (e) {
+                        ProcessExcel(e.target.result);
+                    };
+                    reader.readAsBinaryString(fileUpload.files[0]);
+                } else {
+                    //For IE Browser.
+                    reader.onload = function (e) {
+                        var data = "";
+                        var bytes = new Uint8Array(e.target.result);
+                        for (var i = 0; i < bytes.byteLength; i++) {
+                            data += String.fromCharCode(bytes[i]);
+                        }
+                        ProcessExcel(data);
+                    };
+                    reader.readAsArrayBuffer(fileUpload.files[0]);
+                }
+            } else {
+                alert("This browser does not support HTML5.");
+            }
+        } else {
+            alert("Please upload a valid Excel file.");
+        }
+    };
+    function ProcessExcel(data) {
+        //Read the Excel File data.
+        var workbook = XLSX.read(data, {
+            type: 'binary'
+        });
+ 
+        //Fetch the name of First Sheet.
+        var firstSheet = workbook.SheetNames[0];
+ 
+        //Read all rows from First Sheet into an JSON array.
+        var excelRows = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[firstSheet]);
+ 
+        //Create a HTML Table element.
+        var table = document.createElement("table");
+        table.border = "1";
+        table.setAttribute("name","exe");
+ 
+        //Add the header row.
+        var row = table.insertRow(-1);
+        table.id='abc';
+        
+ 
+        /*Add the header cells.
+   
+  		headerCell = document.createElement("TH");
+        headerCell.innerHTML = "No";
+        row.appendChild(headerCell);
+        */
+        headerCell = document.createElement("TH");
+        headerCell.innerHTML = "Roll_No";
+        row.appendChild(headerCell);
+        
+		headerCell = document.createElement("TH");
+        headerCell.innerHTML = "Std";
+        row.appendChild(headerCell);
+		
+		/*
+        headerCell = document.createElement("TH");
+        headerCell.innerHTML = "Stud_Nm";
+        row.appendChild(headerCell);
+ 
+        headerCell = document.createElement("TH");
+        headerCell.innerHTML = "GR_No";
+        row.appendChild(headerCell);
+		
+		headerCell = document.createElement("TH");
+        headerCell.innerHTML = "Dob";
+        row.appendChild(headerCell);
+		
+		
+		headerCell = document.createElement("TH");
+        headerCell.innerHTML = "Sec_Id";
+        row.appendChild(headerCell);
+		*/
+      
+        for (var i = 0; i < excelRows.length; i++) {
+           
+            var row = table.insertRow(-1);
+ 
+		            
+		             /*   var cell = row.insertCell(-1);
+		                var abc13 =document.createElement('input');
+					    abc13.value = excelRows[i].No;
+				        abc13.setAttribute("name","No");
+				        cell.appendChild(abc13);
+				        abc13.className='text1';
+		          */
+		                var cell = row.insertCell(-1);
+		                var abc =document.createElement('input');
+					    abc.value = excelRows[i].Roll_No;
+				        abc.setAttribute("name","roll_no");
+				        cell.appendChild(abc);
+						 abc.className='test';
+			    
+			   	      
+	/*
+			
+					    cell = row.insertCell(-1);
+				        var abc4 =document.createElement('input');
+						abc4.value = excelRows[i].Stud_Nm;
+					    abc4.setAttribute("name","student_name");
+					    cell.appendChild(abc4);	
+					    
+
+				        cell = row.insertCell(-1);
+				        var abc3 =document.createElement('input');
+						abc3.value = excelRows[i].GR_No;
+					    abc3.setAttribute("name","uid");
+					    cell.appendChild(abc3);
+					    abc3.className='test';
+					    
+					    
+					    cell = row.insertCell(-1);
+				        var abc6 =document.createElement('input');
+						abc6.value = excelRows[i].Dob;
+					    abc6.setAttribute("name","birth_date");
+					    cell.appendChild(abc6);		    
+			
+					    
+					    cell = row.insertCell(-1);
+			            var abc1 =document.createElement('input');
+					    abc1.value = excelRows[i].Std;
+				        abc1.setAttribute("name","class");
+				        cell.appendChild(abc1);
+			    
+			    
+			    	    cell = row.insertCell(-1);
+			   		    var abc2 =document.createElement('input');
+					    abc2.value = excelRows[i].Sec_Id;
+				        abc2.setAttribute("name","group");
+				        cell.appendChild(abc2);
+
+				*/	  
+			        }
+
+        var dvExcel = document.getElementById("dvExcel");
+        dvExcel.innerHTML = "";
+        dvExcel.appendChild(table);
+		
+    };
+    
+
+</script>
+
+
+</head>
+
+<body>
+
+</body>
+<center>
+<input type="file" id="fileUpload" style="width: 200px;" />
+<input type="button" id="upload" value="Upload" onclick="Upload()" style="width: 7%;cursor: pointer;" />
+<hr />
+</center>
+<form action="exel" method="post">
+<div id="dvExcel" style="text-align: center;" onload="findDupes()"></div>
+<br><br><br>
+<center>
+<input type="button" value="check" name="btn" class="ter"  style="width: 6%;cursor: pointer;"> 
+<input type="submit" value="submit" name="btn" class="ter"  style="width: 6%;cursor: pointer;"> </center>
+</from>
+<script>
+$(document).ready(function(){
+    $('.ter').click(function(e) {
+        var stored  =   [];
+        var inputs  =   $('.test');
+        $.each(inputs,function(k,v){
+            var getVal  =   $(v).val();
+            if(stored.indexOf(getVal) != -1){
+                $(v).focus().css({"background-color": "red"});
+				
+				}
+            else{
+                stored.push($(v).val());
+                $(v).focus().css({"background-color": "#a3f5a361"});
+                     
+            }
+        });
+    });
+});
+</script>
+</html>
+
+
+
