@@ -1,0 +1,48 @@
+	[ master_member ]
+	
+		plan_id
+		plan_name
+   	plan_amount
+		plan_currency
+		tenure_id
+		redemption_amount
+		redemption_validity
+		foodvoucher_amount
+		foodvoucher_validity
+	
+		
+	[	Benefits ]
+		
+		plan_id
+		benefits_id
+		propertie_id
+		club_id
+		event_id
+		event_name
+		event_charges
+		
+		
+	[	group_properties ]
+		
+		plan_id
+		propertie_id
+		propertie_name
+		propertie_address
+		
+		
+	[	Affiated_clubs ]
+		
+		club_id
+		plan_id
+		club_name
+		club_address
+		
+	[	terms_condition ]
+		
+		terms_id
+		terms_name
+		
+		
+		
+		
+		
