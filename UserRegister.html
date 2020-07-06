@@ -1,0 +1,1525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Add New User</title>
+
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/admin/img/favicon.ico">
+
+<!-- fonts -->
+<link href="<%=request.getContextPath() %>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<!-- styles -->
+<link href="<%=request.getContextPath() %>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
+
+<!-- -->
+<link href="<%=request.getContextPath() %>/resources/admin/css/style.css" rel="stylesheet">
+
+<!-- Responsive -->
+<link href="<%=request.getContextPath() %>/resources/admin/css/responsive.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/admin/font-awesome-4.7.0/css/font-awesome.min.css">
+<!-- Custom styles for this page -->
+<link href="<%=request.getContextPath() %>/resources/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+
+<%-- <script src="<%=request.getContextPath() %>/resources/admin/js/slimselect.min.js"></script>
+<link href="<%=request.getContextPath() %>/resources/admin/css/slimselect.min.css" rel="stylesheet"></link> --%>
+
+
+<!--***ckeditor****-->
+<script src="https://cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
+
+
+<!--***datetimepicker****-->
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/admin/datetimepicker/css/kendo.material.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/admin/datetimepicker/css/kendo.material.mobile.min.css" />
+<script src="<%=request.getContextPath() %>/resources/admin/datetimepicker/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/admin/datetimepicker/js/kendo.all.min.js"></script>
+
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/admin/css/bootstrap-clockpicker.css" />
+<script src="<%=request.getContextPath() %>/resources/admin/js/bootstrap-clockpicker.js"></script>
+
+<link href="<%=request.getContextPath() %>/resources/admin/css/toastr.min.css" rel="stylesheet">
+
+<script	src="<%=request.getContextPath()%>/resources/admin/js/angular.min.js"></script>
+<script	src="<%=request.getContextPath()%>/resources/admin/js/controller/conf.js"></script>
+<script	src="<%=request.getContextPath()%>/resources/admin/js/controller/manageUser.js"></script>
+
+
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #004677;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  color:white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+  color:black;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+<script>
+function myFunction() {
+  var x = document.getElementById("London");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+
+	document.getElementById('UserDetails').classList.add("active");
+  } else {
+	 /*  document.getElementById('collapseCardExample').style.display = "none"; */
+    x.style.display = "none";
+   document.getElementById('UserDetails').classList.remove("active");
+    document.getElementById('FamilyDetails').classList.remove("active");
+    document.getElementById('PersonalDetails').classList.remove("active");
+    document.getElementById('NomineeDetails').classList.remove("active"); 
+  }
+}
+</script>
+<script>
+function myFunction1() {
+  var x = document.getElementById("collapseCardExample");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+
+	document.getElementById('UserDetails').classList.add("active");
+  } else {
+	 /*  document.getElementById('collapseCardExample').style.display = "none"; */
+    x.style.display = "none";
+
+}
+</script>
+<script>
+
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+
+function openClass(oldcity,newcity,cityName) {
+  var j,k;
+  j=document.getElementById(newcity).classList.add("active");
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  
+  k=document.getElementById(oldcity).classList.remove("active");
+  
+  document.getElementById(cityName).style.display = "block";
+ 
+}
+
+</script>
+</head>
+
+<body id="page-top" ng-app="prc" ng-controller="UserCtrl">
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+			<%@include file="left-nav.jsp" %>
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+		<!-- Main Content -->
+			<div id="content">
+			<%@include file="header.jsp" %>
+          <!-- End of Topbar -->
+			<div class="container-fluid">
+				<div class="row">
+				  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+					<div class="tab">
+						  <button  id="UserDetails" class="tablinks" onclick="openCity(event, 'London')">User Details</button>
+						  <button id="FamilyDetails"  class="tablinks" onclick="openCity(event, 'Paris')">Family Details</button>
+						  <button id="PersonalDetails" class="tablinks" onclick="openCity(event, 'Tokyo')">Personal Information</button>
+						   <button id="NomineeDetails" class="tablinks" onclick="openCity(event, 'India')">  Nominee Details </button>
+						    <button id="PaymentDetails" class="tablinks" onclick="openCity(event, 'Bharat')">  Payment Details </button>
+							<div> <a onclick="myFunction()"> <i class="fa fa-angle-down" id="down" style="color:white;float: right;margin-right:25px;margin-top:15px;  font-size: 20px" aria-hidden="true"></i></a></div>
+					</div>
+
+<!-- Collapsable Card Example -->
+	<div class="card shadow mb-4">
+		<!-- Card Header - Accordion -->
+           <!-- Card Content - Collapse  class="collapse"-->
+	<div class="" id="collapseCardExample" >
+	   <div class="" >
+<!--===================================================== User Register Details ======================================================= -->            
+	  <form class="" ng-submit="addBatch()">
+	    
+	    <div id="London" class="tabcontent"> <br>
+          <div class="box-header with-border card shadow mb-4 col-lg-12" style="padding-top:15px;background-color: #f8f9fc;">
+			   <h3 class="box-title" style="color:#4A2818;"> Add User Register Details  </h3>
+		  </div>
+										
+		<div class="form-group row"><!-- Row Start -->
+     		<div class="col-md-4" >
+				<div class="form-group">
+					<label>Membership Plan <span class="errormsg">*</span></label> 
+					<select class="form-control input-lg2" name="" id="eventDrop" ng-model="membershipRegister" ng-change="getMembers()">
+						<option value="" selected> Select Membership Plan</option>
+						<option value=""> Gold</option>
+						<option value=""> Silver</option>
+						<option value=""> Classic</option>
+					</select>
+				</div>
+			</div>
+  			<div class="col-lg-4 " style="float:right">
+				<label> Enrollment No. <span class="errormsg">*</span></label> 
+				<input class="form-control" placeholder=" Enrollment Number " readonly ng-model="Enrollment" id="courseTitle" type="text">
+				<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+			</div>
+		</div>
+		<div class="row form-group"> <!-------------------------------------- Row Start -->
+			<div class="col-md-4" >
+				<div class="form-group">
+					<label>Tenure <span class="errormsg">*</span></label> 
+					<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="city" ng-change="getMembers()">
+						<option value="" selected> Select Tenure</option>
+						<option value="" > 1 Year</option>
+						<option value="" > 2 Year</option>
+						<option value="" > 3 Year</option>
+						<option value="" > 4 Year</option>
+						<option value="" > 5 Year</option>													
+					</select>
+			   </div>
+		    </div>
+			<div id="example" class="col-lg-4 demo-section k-content" >
+				<label> Start Date <span class="errormsg">*</span></label>
+				<input class="KendoDate " id="fromdatetimepicker" title="fromdatetimepicker"  ng-model="maxdate" style="width: 100%;" />
+				<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+			</div>
+			<div id="example" class="col-lg-4 demo-section k-content" >
+				<label> Membership Expiry Date <span class="errormsg">*</span></label>
+				<input class="KendoDate " id="fromdatetimepicker1" title="fromdatetimepicker"  ng-model="maxdate" style="width: 100%;" />
+				<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+			</div>										
+		</div>
+			
+		 <div class="form-group row">  <!------------------------------------ Row Start -->
+  				 <div class="col-lg-4" >
+					<label>First Name <span class="errormsg">*</span></label> 
+					<input class="form-control" placeholder=" Enter First Name  " ng-model="FirstName" id="courseTitle" type="text">
+					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				 </div>
+				<div class="col-lg-4"  >
+					<label> Middle Name <span class="errormsg">*</span></label> 
+					<input class="form-control" placeholder=" Enter Middle Name " ng-model="MiddleName" id="courseTitle" type="text">
+					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>
+				<div class="col-lg-4 "  >
+				   	<label>Last Name <span class="errormsg">*</span></label> 
+					<input class="form-control" placeholder=" Enter Last Name " ng-model="LastName" id="courseTitle" type="text">
+					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>							
+		</div>
+																	
+		<div class="box-header with-border card shadow mb-4 col-lg-12" style="padding-top:15px;background-color: #f8f9fc;">
+				<h3 class="box-title" style="color:#4A2818;"> Address Details  </h3>
+		</div>	
+						
+      <div class="form-group row"><!------------------------------------ Row Start -->
+	  			<div class="col-lg-4 " >
+				   	<label>Address Line 1 <span class="errormsg">*</span></label> 
+					<input class="form-control" placeholder=" Enter Your Address  " ng-model="Address1" id="courseTitle" type="text">
+					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>
+				<div class="col-lg-4 "  >
+			    	<label> Address Line 2</label> 
+						<input class="form-control" placeholder="  Enter Your Address" ng-model="Address2" id="courseTitle" type="text">
+						<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>
+			    <div class="col-lg-4  "  >
+				  	<label>Address Line 3 </label> 
+					<input class="form-control" placeholder=" Enter Your Address" ng-model="Address3" id="courseTitle" type="text">
+					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>									
+		</div>
+			<div class="row"> <!------------------------------------ Row Start -->
+				<div class="col-md-3" >
+					 <div class="form-group">
+						<label>Country <span class="errormsg">*</span></label> 
+						<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="country" ng-change="getMembers()">
+								<option value=""> Select Country</option>
+					   		    <option ng-repeat="item in allCourses" value="{{item.courceId}}">{{item.courceTitle}}</option>
+						</select>
+					</div>
+					  </div>
+					 <div class="col-md-3" >
+							<div class="form-group">
+								<label>State <span class="errormsg">*</span></label> 
+								<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="state" ng-change="getMembers()">
+					  			  <option value=""> Select State</option>						
+								</select>
+							</div>
+					</div>
+					<div class="col-md-3" >
+							<div class="form-group">
+									<label>City <span class="errormsg">*</span></label> 
+										<input class="form-control" placeholder=" Enter Your Pincode" ng-model="pincode" id="courseTitle" type="text">
+							</div>
+					</div>				
+					<div class="col-lg-3 "  >
+						    	<label>Pincode <span class="errormsg">*</span></label> 
+								<input class="form-control" placeholder=" Enter Your Pincode" ng-model="pincode" id="courseTitle" type="text">
+								<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+					</div>		
+		   </div>
+						
+	 <div class="box-header with-border card shadow mb-4 col-lg-12" style="padding-top:15px;background-color: #f8f9fc;">
+			<h3 class="box-title" style="color:#4A2818;"> Login Details  </h3>
+     </div>					
+		   <div class="form-group row"> <!------------------------------------ Row Start -->
+				<div class="col-lg-3 "  >
+				   	<label> Phone Number</label> 
+					<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="Address3" id="courseTitle" type="number">
+					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>	
+				<div class="col-lg-3 "  >
+			    	<label> Mobile Number <span class="errormsg">*</span></label> 
+						<input class="form-control" placeholder=" Enter Your Mobile Number" ng-model="Address3" id="courseTitle" type="number">
+						<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>		
+				<div class="col-lg-3" >
+				   	<label>Email  <span class="errormsg">*</span></label> 
+						<input class="form-control" placeholder=" Enter Your Email  " ng-model="Address1" id="courseTitle" type="email">
+						<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>
+				<div class="col-lg-3 "  >
+				   	<label> Password <span class="errormsg">*</span></label> 
+						<input class="form-control" placeholder="  Enter Your Password" ng-model="Address2" id="courseTitle" type="password">
+						<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+				</div>
+			</div>	
+									
+		<div class="form-group row">  <!------------------------------------ Row Start -->
+				<div class="col-lg-3">							
+					<img src="https://www.w3schools.com/howto/img_avatar.png" height="140" width="220" style="border:1px solid black;margin-top:15px;"  id="blah1" alt="Image preview...">
+				</div>							
+				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+							<label> User Picture </label>
+								<div class="custom-file">
+									<input type="file" class="custom-file-input input-group-lg" onchange="previewFile()" ng-model="image1" id="blah" name="CourseImageEdit"> 					
+										<label class="custom-file-label" for="customFile">{{picture}}</label>
+								</div>				
+				</div>
+	     </div>
+
+		<div class="row">		<!------------------------------------ Row Start -->							
+				<div class="col-md-8 text-left">
+					<strong ng-show="albumSubmitSuccess == 1" style="color: green;"><span class="fa fa-check-circle"></span> {{successMsg}}</strong>
+					<strong ng-show="albumSubmitError == 1" style="color: red;"><span class="fa fa-times-circle"></span> {{errorMsg}}</strong>
+				</div>										
+				<div class="col-md-4 text-right">
+					<button onclick="openClass('UserDetails','FamilyDetails', 'Paris')" type="submit" ng-disabled="spin == 1" class="btn btn-success tablinks"><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Save & Next</button>																						</div>
+				</div>	
+		</div>	
+<!-- ============================================= Family Details===================================== -->							
+			<div id="Paris" class="tabcontent">
+						<div class="box-header with-border card shadow mb-4" style="padding-top:15px;background-color: #f8f9fc;">
+							<h3 class="box-title" style="color:#4A2818;"> Family Details</h3>
+						</div>							
+							<div class="box-body"> 		
+									 <div class="form-group row">
+						   				 <div class="col-lg-4 " >
+									    	<label>First Name <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter First Name  " ng-model="FirstName" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-4 c "  >
+									    	<label> Middle Name <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Middle Name " ng-model="MiddleName" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-4 "  >
+									    	<label>Last Name <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Last Name " ng-model="LastName" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										
+										
+									</div>	
+									<div class="form-group row">
+  									    <div class="col-lg-4 " >
+									    	<label>Address Line 1 <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Your Address  " ng-model="Address1" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-4 "  >
+									    	<label> Address Line 2</label> 
+											<input class="form-control" placeholder="  Enter Your Address" ng-model="Address2" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-4  "  >
+									    	<label>Address Line 3 </label> 
+											<input class="form-control" placeholder=" Enter Your Address" ng-model="Address3" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										
+										
+							</div>
+								<div class="row">
+										<div class="col-md-3" >
+											<div class="form-group">
+											<label>Country <span class="errormsg">*</span></label> 
+												<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="country" ng-change="getMembers()">
+													<option value=""> Select Country</option>
+													<option ng-repeat="item in allCourses" value="{{item.courceId}}">{{item.courceTitle}}</option>
+												</select>
+											</div>
+										</div>
+										
+										<div class="col-md-3" >
+											<div class="form-group">
+											<label>State <span class="errormsg">*</span></label> 
+												<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="state" ng-change="getMembers()">
+													<option value=""> Select State</option>
+													
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3" >
+											<div class="form-group">
+											<label>City <span class="errormsg">*</span></label> 
+												<input class="form-control" placeholder=" Enter Your City" ng-model="pincode" id="courseTitle" type="text">
+											</div>
+										</div>
+										
+								
+								<div class="col-lg-3 "  >
+									    	<label>Pincode <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Your Pincode" ng-model="pincode" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+			</div>
+							<div class="form-group row">
+
+  									 
+										<div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
+											<label> Relation <span class="errormsg">*</span></label> 
+											<select class="form-control" ng-model="Relation1" id="Relation">
+												<option value="" selected>Select Relation</option>
+													<option value="Father">Father</option>
+													<option value="Mother">Mother</option>
+													<option value="Brother">Brother</option>
+													<option value="Sister">Sister</option>
+													
+												<!-- <option ng-repeat="item in getCurrency" value="{{item.currencyId}}">{{item.currencyCode}}</option> -->
+											</select>
+										
+										</div>
+										<div id="example" class="col-lg-3 demo-section k-content">
+											<label>  Date of Birth <span class="errormsg">*</span></label>
+											<input class="KendoDate" id="fromdatetimepicker3" title="fromdatetimepicker"3 ng-model="bday" style="width: 100%;" />
+											<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+										</div>
+										<div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
+											<label> Gender<span class="errormsg">*</span> </label> 
+											<select class="form-control" ng-model="Gender" id="Gender">
+												<option value="">Male</option>
+													<option value="">Female</option>					
+											</select>							
+										</div>
+										<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+											<label> Blood Group<span class="errormsg">*</span> </label> 
+											<select class="form-control" ng-model="bgroup" id="Gender">
+												<option value="">A+</option>
+													<option value="">B+</option>					
+											</select>							
+										</div>
+										
+									
+									</div>
+						
+									<div class="form-group row">
+										<div class="col-lg-3 "  >
+									    	<label> Phone Number </label> 
+											<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="Address3" id="courseTitle" type="number">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-3 "  >
+									    	<label> Mobile Number <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Your Mobile Number" ng-model="Address3" id="courseTitle" type="number">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+  									    <div class="col-lg-3" >
+									    	<label>Email  <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Your Email  " ng-model="Address1" id="courseTitle" type="email">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-3 "  >
+									    	<label> Password <span class="errormsg">*</span></label> 
+											<input class="form-control " placeholder="  Enter Your Password" ng-model="Address2" id="courseTitle" type="password">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+									
+										
+										
+									</div>
+										<div class="form-group row">
+						<div class="col-lg-3">
+										
+							<img src="https://www.w3schools.com/howto/img_avatar.png" height="140" width="220"   style="border:1px solid black;margin-top:15px;"  id="blah3" alt="Image preview...">
+				
+										</div>
+										
+										<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+											<label> User Picture </label>
+											<div class="custom-file">
+												<input type="file" class="custom-file-input input-group-lg" onchange="previewFile1()" ng-model="image1" id="blah2" name="CourseImageEdit"> 
+											
+												<label class="custom-file-label" for="customFile">{{picture}}</label>
+											</div>
+											
+										</div>
+
+											<div class="col-md-1">
+													<div class="form-group"><br>
+														<a ng-click="addRow()" class="btn btn-primary" style="color:white;"><span class="fa fa-plus" style="font-size: 14px;"></span>&nbsp;Add</a>
+													</div>
+											</div>									
+									</div>
+								<hr>				
+								<div class="form-group row">		
+									<div class="table-responsive table-bordered">
+											<table class="table">
+												<thead>
+												<tr>	
+												<th>#</th>																
+													<th>Name</th>
+													<th>Relation</th>
+													<th>Date of Birth</th>
+													<th>Delete</th>
+												</tr>
+												</thead>
+														<tbody >
+	
+														<tr ng-repeat="items in addInsertRow">
+															<td style="width: 5%">{{$index + 1}}</td>
+															<td style="width: 25%">{{items.FirstName}} {{items.LastName}}</td>
+															
+															<td style="width: 25%">{{items.Relation1}}</td>
+															<td style="width: 30%">{{items.bday}}</td>
+														
+														<td>
+														<a ng-click="removeAlbumImageRow(item.imageTitle)" style="cursor: pointer;" class="btn btn-danger">
+															<i class="fa fa-trash" style="color:white;" aria-hidden="true" data-toggle="tooltip" title="Delete"></i>
+														</a>	
+													</td>
+														</tr>
+
+													
+													</tbody>
+									
+										</table>
+									</div>
+																
+							</div>
+								<div class="row">									
+													
+													<div class="col-md-10 text-left">
+														<button onclick="openClass('FamilyDetails','UserDetails', 'London')" class="btn btn-success tablinks "><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Previous</button>
+													</div>
+													<div class="col-md-2 text-right">
+														<button onclick="openClass('FamilyDetails','PersonalDetails', 'Tokyo')" type="submit" ng-disabled="spin == 1" class="btn btn-success tablinks"><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Save & Next</button>
+													
+													</div>
+												</div>								
+									</div>								
+			</div>					
+				<!-- ================================ Personal Information ================================================ -->				
+			<div id="Tokyo" class="tabcontent">
+		
+						<div class="box-header with-border card shadow mb-4" style="padding-top:15px;background-color: #f8f9fc;">
+							<h3 class="box-title" style="color:#4A2818;"> Personal Information</h3>
+						</div>	
+												
+						<div class="box-body"> 	
+						<div class="form-group row">
+						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+											<label> Status <span class="errormsg">*</span></label> 
+											<select class="form-control" ng-model="status" id="Relation" >
+												<option value="">Business</option>
+													<option value="">Profesional</option>
+													<option value="">Employed</option>
+												<option value="others">Others</option>
+											</select>
+										
+										</div>
+										<div class="col-lg-3 " ng-show="status=='others'">
+									    	<label>Other Status<span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Other Status" ng-model="fullname" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+
+										
+										<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+											<label> Other Club Membership <span class="errormsg">*</span></label> 
+											<select class="form-control" ng-model="otherclub" id="Relation" >
+												<option value="">Yes</option>
+												<option value="">No</option>
+												
+											</select>
+										</div>
+						
+					<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+						<label>Name Of Club</label> 
+							<div class="form-group input-group ">
+								<select class="form-control" ng-model="BatchID" id="BatchID" ng-change="getBatchTimingsById(BatchID)">
+									<option value="" selected>Select Your Club</option>
+												<option value="">Club 1</option>
+												<option value="">CLub 2</option>
+								</select> <span class="input-group-btn">
+									<button style="border-radius: 0px 4px 4px 0px;" title="Add new Batch" data-toggle="modal" data-target="#myModal"  class="btn btn-primary" type="button">
+										<i class="fa fa-plus"></i>
+									</button>
+								</span>
+
+							</div>
+							<p class="errormsg" ng-show="batchIDError == 1">{{batchIDMsg}}</p>
+						</div>
+							
+								
+						</div>
+						<div class="form-group row">
+						
+										<div id="example" class="col-lg-3 demo-section k-content" style="align:right">
+											<label> Marriage Anniversary <span class="errormsg">*</span></label>
+											<input  class="KendoDate" id="fromdatetimepicker8" title="fromdatetimepicker" ng-model="Anniversary" style="width: 100%;" />
+											<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+										</div>
+							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+												<label> House Owned <span class="errormsg">*</span></label> 
+												<select class="form-control" ng-model="HouseOwned " id="Relation" >
+													<option value="">Owned</option>
+													<option value="">Leased</option>
+													<option value="">Company</option>
+													
+												</select>
+							</div>
+						</div>
+					
+						<div class="form-group row">
+
+  									    <div class="col-lg-4 " >
+									    	<label> Name of Member<span class="errormsg">*</span></label> 
+										<select class="form-control" ng-model="HouseOwned " id="Relation" >
+													
+													<option value="" selected>Select Member</option>
+													<option value="">Name 1</option>
+													<option value="">Name 2</option>
+													<option value="">Name 3</option>
+													
+												</select>
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+											<label> Relation <span class="errormsg">*</span></label> 
+											<select class="form-control" ng-model="Relation2" id="Relation">
+												<option value="">Self</option>
+													<option value="">Father</option>
+												<!-- <option ng-repeat="item in getCurrency" value="{{item.currencyId}}">{{item.currencyCode}}</option> -->
+											</select>
+										
+										</div>
+									
+										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+											<label> Choice<span class="errormsg">*</span> </label> 
+											<select class="form-control" ng-model="Choice" id="Choice">
+												<option value="">Choice1</option>
+												<option value="">Choice 2</option>	
+												<option value="">Choice 3</option>
+												<option value="">Choice 4</option>	
+												<option value="">Choice 5</option>
+												<option value="">Choice 6</option>					
+											</select>							
+										</div>
+									
+										
+										<div class="col-md-1">
+													<div class="form-group"><br>
+														<a ng-click="addAlbumImageRow()" class="btn btn-primary" style="color:white;"><span class="fa fa-plus" style="font-size: 14px;"></span>&nbsp;Add</a>
+													</div>
+										</div>
+																	
+									</div>
+										<div class="form-group row">		
+									<div class="table-responsive table-bordered">
+											<table class="table">
+												<thead>
+												<tr>																	
+													<th>Name</th>
+													<th>Name of Club</th>
+													<th>Status</th>
+												</tr>
+												</thead>
+											<tbody>
+										     	<tr ng-repeat="item in albumimage" ng-show="item.imageTitle != null">																	
+													<td>{{item.imageTitle}}</td>
+													<td>{{item.imageDescription}}</td>
+													<td>
+														<a ng-click="removeAlbumImageRow(item.imageTitle)" style="cursor: pointer;" class="btn btn-danger">
+															<i class="fa fa-trash" style="color:white;" aria-hidden="true" data-toggle="tooltip" title="Delete"></i>
+														</a>	
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+																
+							</div>
+									<div class="row">									
+										<!-- <div class="col-md-8 text-left">
+														<strong ng-show="albumSubmitSuccess == 1" style="color: green;"><span class="fa fa-check-circle"></span> {{successMsg}}</strong>
+														<strong ng-show="albumSubmitError == 1" style="color: red;"><span class="fa fa-times-circle"></span> {{errorMsg}}</strong>
+							</div> -->
+													<div class="col-md-10 text-left">
+														<button onclick="openClass('PersonalDetails','FamilyDetails', 'Paris')" class="btn btn-success tablinks "><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Previous</button>
+													</div>
+													<div class="col-md-2 text-right">
+														<button onclick="openClass('PersonalDetails','NomineeDetails','India')" ng-click="addalbum()" type="submit" ng-disabled="spin == 1" class="btn btn-success"><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Save & Next</button>
+													</div>
+											</div>						
+			</div>						
+</div>
+
+				<div id="India" class="tabcontent">
+										<div class="box-header with-border card shadow mb-4" style="padding-top:15px;background-color: #f8f9fc;">
+												<h3 class="box-title" style="color:#4A2818;"> Nominee Details </h3>
+											</div>
+															
+								<div class="box-body"> 						
+  								 <div class="form-group row ">
+
+
+  									    <div class="col-lg-4 " >
+									    	<label>First Name <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter First Name  " ng-model="fname" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-4 c "  >
+									    	<label> Middle Name <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Middle Name " ng-model="mname" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-4 "  >
+									    	<label>Last Name <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Last Name " ng-model="lname" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										
+										
+									</div>
+									<div class="form-group row">
+
+  									    <div class="col-lg-4 " >
+									    	<label>Address Line 1 <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Your Address  " ng-model="add1" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-4 "  >
+									    	<label> Address Line 2</label> 
+											<input class="form-control" placeholder="  Enter Your Address" ng-model="add2" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-4  "  >
+									    	<label>Address Line 3 </label> 
+											<input class="form-control" placeholder=" Enter Your Address" ng-model="add3" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+									
+									</div>
+										<div class="row">
+										<div class="col-md-3" >
+											<div class="form-group">
+											<label>Country <span class="errormsg">*</span></label> 
+												<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="country" ng-change="getMembers()">
+													<option value=""> Select Country</option>
+													<option ng-repeat="item in allCourses" value="{{item.courceId}}">{{item.courceTitle}}</option>
+												</select>
+											</div>
+										</div>
+										
+										<div class="col-md-3" >
+											<div class="form-group">
+											<label>State <span class="errormsg">*</span></label> 
+												<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="state" ng-change="getMembers()">
+													<option value=""> Select State</option>
+													
+												</select>
+											</div>
+										</div>
+										<div class="col-md-3" >
+											<div class="form-group">
+											<label>City <span class="errormsg">*</span></label> 
+												<input class="form-control" placeholder=" Enter Your City" ng-model="pincode" id="courseTitle" type="text">
+											</div>
+										</div>
+										
+								
+								<div class="col-lg-3 "  >
+									    	<label>Pincode <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Your Pincode" ng-model="pincode" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+					
+						</div>
+						
+									<div class="form-group row">
+									   <div class="col-lg-3" >
+									    	<label>Phone Number </label> 
+											<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="mobile" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+
+  									    <div class="col-lg-3" >
+									    	<label>Mobile self <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder=" Enter Your Mobile Number  " ng-model="mobile" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div class="col-lg-3 "  >
+									    	<label> Email  <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder="  Enter Your Email" ng-model="email" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										  
+									</div>
+									
+									<div class="row">									
+													<div class="col-md-10 text-left">
+														<button onclick="openClass('NomineeDetails','PersonalDetails','Tokyo')" class="btn btn-success tablinks "><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Previous</button>
+													</div>
+												
+													<div class="col-md-2 text-right">
+														<button onclick="openClass('NomineeDetails','PaymentDetails','Bharat')" class="btn btn-success tablinks "><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Save & Next</button>
+													</div>
+													
+											</div>	
+		</div>								
+		
+	
+
+</div>
+<!-- ====================================================== Payment Details -======================================= -->
+
+
+<div id="Bharat" class="tabcontent">
+	 
+											<div class="box-header with-border card shadow mb-4" style="padding-top:15px;background-color: #f8f9fc;">
+												<h3 class="box-title" style="color:#4A2818;"> Payment For Membership </h3>
+											</div>
+															
+								<div class="box-body"> 						
+  								
+									<div class="form-group row">
+
+  									    <div class="col-lg-3 " >
+									    	<label>Membership Type <span class="errormsg">*</span></label> 
+											<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="membertype" ng-change="getMembers()">
+													<option value="" selected> Select Membership Type</option>
+													<option value=""> Gold</option>
+													<option value=""> Silver</option>
+													<option value=""> Classic</option>
+												</select>
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										
+						
+										
+										<div class="col-lg-3 "  >
+									    	<label> Enrollment No</label> 
+											<input class="form-control" placeholder="Enrollment No" readonly ng-model="add2" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										<div id="example" class="col-lg-3 demo-section k-content" >
+											<label> Start Date <span class="errormsg">*</span></label>
+											<input class="KendoDate " id="fromdatetimepicker5" title="fromdatetimepicker"  ng-model="maxdate" style="width: 100%;" />
+											<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+										</div>
+										
+										<div id="example" class="col-lg-3 demo-section k-content" >
+											<label> Expiry Date <span class="errormsg">*</span></label>
+											<input class="KendoDate " id="fromdatetimepicker6" title="fromdatetimepicker"  ng-model="maxdate" style="width: 100%;" />
+											<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+										</div>
+									
+									</div>
+									
+			
+						
+						
+
+											
+								
+								
+								<div class="row form-group">
+								
+									<div class="col-lg-3"  >
+									    	<label>Total Member Ship Amount<span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder="Total Member Ship Amount" ng-model="courseTitle" id="totalAmount" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+									
+									
+  									    <div class="col-lg-2 " >
+									    	<label>GST Type <span class="errormsg">*</span></label> 
+											<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="membertype" ng-change="getMembers()">
+													<option value="" selected> GST Type</option>
+													<option value=""> CGST</option>
+													<option value=""> IGST</option>
+													<option value=""> SGST</option>
+												</select>
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										
+											<div class="col-lg-2"  >
+									    	<label>GST Value<span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder="GST Value*" ng-model="courseTitle" id="totalAmount" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+										
+									<div class="col-lg-2"  >
+									    	<label> Discount(if any) </label> 
+											<input class="form-control" placeholder="Discount Amount" ng-model="courseTitle" id="totalAmount" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>	
+										
+									
+										<div class="col-lg-2 col-md-3 col-sm-6 col-xs-12">
+											<label> Currency <span class="errormsg">*</span></label> 
+											<select class="form-control" ng-model="Currency" id="Currency">
+												<option value=""selected> Select Currency</option>
+												<option value="">INR</option>
+												<option value="">USD</option>
+											</select>
+										
+										</div>
+								
+								</div>
+									<br>
+									<div class="row">									
+													<div class="col-md-9 text-left">
+														<button onclick="openClass('PaymentDetails','NomineeDetails','India')" class="btn btn-success tablinks "><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Previous</button>
+													</div>
+												
+													<div class="col-md-3 text-right">
+														<button  class="btn btn-success tablinks "><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Finish </button>
+													</div>
+											</div>	
+		</div>								
+
+</div>
+
+
+
+
+										</form>
+
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+	<div class="container-fluid">
+					<div class="row">
+
+						<!-- Earnings (Monthly) Card Example -->
+						<div class="col-lg-12 col-md-12  col-sm-12 col-xl-12">
+							<!-- Collapsable Card Example -->
+							<div class="card shadow mb-4">
+
+								<!-- Card Header -->
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">All Users </h6>
+								</div>
+
+
+
+
+								<!-- Card Content -->
+								<div class="card-body">
+
+									<div class="row">
+
+										<div class="col-sm-12 col-md-12">
+											<div class="table-responsive">
+												<table class="table table-bordered" id="dataTable"
+													width="100%" cellspacing="0">
+
+													<thead>
+														<tr>
+															<th style="width: 5%">#</th>
+															<th style="width: 20%">User Name</th>
+															
+															<th style="width: 20%">Enrollment No </th>
+															<th style="width: 20%">Membership Plan</th>
+														
+															<th class="text-center">Del.</th>
+														</tr>
+													</thead>
+
+
+													<tbody>
+														<tr  style="cursor:pointer;cursor:hand">
+															<td title="Edit Record" data-toggle="modal" data-target="#editModal">1</td>
+															<td title="Edit Record" data-toggle="modal" data-target="#editModal">Shivaji Rao </td>
+															<td title="Edit Record" data-toggle="modal" data-target="#editModal">AD/2020/04</td>
+															<td title="Edit Record" data-toggle="modal" data-target="#editModal">Gold</td>
+
+
+															<td class="text-center" >
+																<button title="Delete Batch" type="button" class="btn btn-outline-default btn-sm view" data-toggle="modal" data-target="#deleteModal"><i class="fa fa-trash-o txt-danger"></i> </button>
+															</td>
+														</tr>
+
+													
+													</tbody>
+
+												</table>
+											</div>
+										</div>
+									</div>
+
+									<hr class="mt-0">
+
+									<div class="row">
+
+										<div class="col-sm-12 col-md-5">
+											<div class="hint-text">Showing <b>{{startindex+1}}-{{getActivityList.length+startindex}}</b> out of <b>{{allcounts.activityCount}}</b> entries</div>
+										</div>
+
+										<div class="col-sm-12 col-md-7 text-right">
+											<div class="dataTables_paginate paging_simple_numbers"
+												id="dataTable_paginate">
+												<ul class="pagination pull-right">
+													<li class="paginate_button page-item previous disabled"
+														id="dataTable_previous"><a href="#"
+														aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+														class="page-link">Previous</a></li>
+													<li class="paginate_button page-item active"><a
+														href="#" aria-controls="dataTable" data-dt-idx="1"
+														tabindex="0" class="page-link">{{currentPage+1}}</a></li>
+													<li class="paginate_button page-item next"
+														id="dataTable_next"><a href="#"
+														aria-controls="dataTable" data-dt-idx="7" tabindex="0"
+														class="page-link">Next</a></li>
+												</ul>
+											</div>
+										</div>
+
+									</div>
+
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+
+
+
+			</div>
+			<!-- End of Main Content -->
+
+			<%@include file="delete_modal.jsp" %>
+			<!--/#footer START-->
+			<%@include file="footer.jsp" %>
+			<!--/#footer END-->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+
+
+
+
+
+
+	<!-- Create Group Modal-->
+
+
+			<div class="container">
+				<div class="modal fade" id="myModal" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+							<h4 class="modal-title">Name Of Clubs</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								
+							</div>
+							<div class="modal-body">
+								<div class="row">
+								
+											<div class="col-lg-12">
+											  <label >Club Name <span class="star" >*</span></label>
+											  <input type="text" class="form-control" name="firstName"  ng-model="firstName" placeholder="Enter Club Name" autocomplete="nope" required>								  
+											</div>
+							</div>
+							<br>
+							<hr>
+								
+								<div class="row">									
+												
+											<div class="col-lg-12 ">
+														<button  class="btn btn-success tablinks "><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Save </button>
+													</div>
+								</div>	
+
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	
+
+
+
+<!-- Bootstrap  JavaScript-->
+	<!--<script src="vendor/jquery/jquery.min.js"></script>-->
+	<script src="<%=request.getContextPath() %>/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core  JavaScript-->
+	<script src="<%=request.getContextPath() %>/resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<%-- <script src="<%=request.getContextPath() %>/resources/admin/js/main.js"></script> --%>
+
+	<!-- Custom scripts for all pages-->
+	<script src="<%=request.getContextPath() %>/resources/admin/js/sb-admin-2.min.js"></script>
+	
+	
+	<script src="<%=request.getContextPath() %>/resources/admin/js/toastr.min.js"></script>
+
+	<!--inputmask-->
+	<script src="<%=request.getContextPath() %>/resources/admin/js/bootstrap-inputmask.js"></script>
+
+	<link
+		href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css"
+		rel="stylesheet" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+		<script>
+			$('#myModal').on('hidden', function()
+					{
+						document.location.reload();
+					})
+		</script>
+	<script>
+$('.select2').select2();
+</script>
+<script type="text/javascript">
+$('.clockpicker').clockpicker({
+    placement: 'bottom',
+    align: 'left',
+    donetext: 'Done',
+    autoclose: true,
+    	afterDone: function() {
+            console.log("after done");
+        }
+});
+</script>
+<script>
+$(document).ready(function () {
+	// create DateTimePicker from input HTML element
+	$("#fromdatetimepicker").kendoDatePicker({
+		format: "dd/MM/yyyy",
+		value: new Date(),
+		dateInput: true
+	});
+	});
+
+
+	$(document).ready(function () {
+	// create DateTimePicker from input HTML element
+	$("#fromdatetimepicker1").kendoDatePicker({
+		format: "dd/MM/yyyy",
+		
+		dateInput: true
+	});
+	});
+	$(document).ready(function () {
+		// create DateTimePicker from input HTML element
+		$("#fromdatetimepicker2").kendoDatePicker({
+			format: "dd/MM/yyyy",
+			
+			dateInput: true
+		});
+		});
+	$(document).ready(function () {
+		// create DateTimePicker from input HTML element
+		$("#fromdatetimepicker3").kendoDatePicker({
+			format: "dd/MM/yyyy",
+			
+			dateInput: true
+		});
+		});
+	$(document).ready(function () {
+		// create DateTimePicker from input HTML element
+		$("#fromdatetimepicker5").kendoDatePicker({
+			format: "dd/MM/yyyy",
+			
+			dateInput: true
+		});
+		});
+	$(document).ready(function () {
+		// create DateTimePicker from input HTML element
+		$("#fromdatetimepicker6").kendoDatePicker({
+			format: "dd/MM/yyyy",
+			
+			dateInput: true
+		});
+		});
+	$(document).ready(function () {
+		// create DateTimePicker from input HTML element
+		$("#fromdatetimepicker7").kendoDatePicker({
+			format: "dd/MM/yyyy",
+			
+			dateInput: true
+		});
+		});
+	$(document).ready(function () {
+		// create DateTimePicker from input HTML element
+		$("#fromdatetimepicker8").kendoDatePicker({
+			format: "dd/MM/yyyy",
+			
+			dateInput: true
+		});
+		});
+
+
+</script>
+<Script>
+
+function previewFile() {
+	  var preview = document.getElementById('blah1');
+	  var file    = document.getElementById('blah').files[0];
+	  var reader  = new FileReader();
+
+	  reader.onloadend = function () {
+	    preview.src = reader.result;
+	  }
+
+	  if (file) {
+	    reader.readAsDataURL(file);
+	  } else {
+	    preview.src = "";
+	  }
+	}
+
+function previewFile1() {
+	  var preview = document.getElementById('blah3');
+	  var file    = document.getElementById('blah2').files[0];
+	  var reader  = new FileReader();
+
+	  reader.onloadend = function () {
+	    preview.src = reader.result;
+	  }
+
+	  if (file) {
+	    reader.readAsDataURL(file);
+	  } else {
+	    preview.src = "";
+	  }
+	}
+
+</Script>
+</body>
+
+</html>
+
+
+
+================================================================================================
+=================================================================================================
+
+
+
+
+app.controller('UserCtrl', function($scope, $http, $window, $filter,
+		$location, $timeout) {
+	var baseUrl = $location.protocol() + "://" + location.host + u;
+
+
+
+
+   // ===================================================== User Register JS =======================================================
+
+
+	
+var baseUrl = $location.protocol() + "://" + location.host + u;
+	$scope.BatchStartTime = "06:00";
+	$scope.BatchEndTime = "07:00";
+	$scope.currentPage = 0;
+	$scope.pageSize = 5;
+	$scope.search = "";
+	$scope.startindex = $scope.currentPage;
+	$scope.pages = [5, 10, 20, 50, 100, 500,'All'];
+	
+	var link = baseUrl+'getMasterMemberPlanByPage?pagesize='+$scope.pageSize+'&startindex='+$scope.startindex;    
+	$http.get(link).success(function(data, status, headers, config) {
+		$scope.getAllMemberNameList = data;
+	}).error(function(data, status, headers, config) {
+		$scope.getAllMemberNameList = "Response Fail";
+	});
+	
+	$scope.changepage = function(){
+		if($scope.pageSize != "All"){
+			var link = baseUrl+'getMasterMemberPlanByPage?pagesize='+$scope.pageSize+'&startindex='+$scope.startindex;    
+			
+			$http.get(link).success(function(data, status, headers, config) {
+				$scope.getAllMemberNameList = data;
+			}).error(function(data, status, headers, config) {
+				$scope.getAllMemberNameList = "Response Fail";
+			});
+			
+		}else{
+			var link = baseUrl+'getAllMemberName';  
+			
+			$http.get(link).success(function(data, status, headers, config) {
+				$scope.getAllMemberNameList = data;
+				
+			}).error(function(data, status, headers, config) {
+				$scope.getAllMemberNameList = "Response Fail";
+			});
+			
+		}
+		
+	};
+	
+//---{1.1}----------------------------------------------------- Add Data In dataBase -----------------------------------------------------------------------
+	
+	$scope.masterMemberPlan="";
+		$scope.addMasterPlan = function(){
+		
+			if (!$scope.masterMemberPlan.plan_name) {			
+				$scope.masterMemberPlanError = 1;
+				$scope.masterMemberPlanMsg = "Enter Membership Plan";
+				document.getElementById("plan_name").focus();	
+				
+			} else if (!$scope.masterMemberPlan.plan_amount) {			
+				$scope.masterMemberPlanAmountError = 1;
+				$scope.masterMemberPlanAmountMsg = "Enter Membership Amount";
+				document.getElementById("plan_amount").focus();				
+			} 
+			
+			else if (!$scope.masterMemberPlan.tenure_year) {			
+				$scope.masterMembertenure_year = 1;
+				$scope.masterMembertenure_yearMsg = "Select tenure Year";
+				document.getElementById("tenure_year").focus();				
+			}
+			else if (!$scope.masterMemberPlan.redemption_amount) {			
+				$scope.masterMemberRedemption_amountError = 1;
+				$scope.masterMemberRedemption_amountMsg = "Enter Redemption Amount";
+				document.getElementById("redemption_amount").focus();				
+			}
+			else if (!$scope.masterMemberPlan.redemption_validity) {			
+				$scope.masterMemberRedemption_validityError = 1;
+				$scope.masterMemberRedemption_validitytMsg = "Select redemption validity";
+				document.getElementById("redemption_validity").focus();				
+			}
+			else if (!$scope.masterMemberPlan.foodvoucher_amount) {			
+				$scope.masterMemberFoodvoucherAmountError = 1;
+				$scope.masterMemberFoodvoucherAmountMsg = "Enter foodvoucher Amount";
+				document.getElementById("foodvoucher_amount").focus();				
+			}
+			else if (!$scope.masterMemberPlan.foodvoucher_validity) {			
+				$scope.masterMemberFoodvoucher_validityError = 1;
+				$scope.masterMemberFoodvoucher_validityMsg = "Select foodvoucher validity";
+				document.getElementById("foodvoucher_validity").focus();				
+			}
+			
+	
+			else {
+			
+			var link = baseUrl+'addMasterPlan';		
+			
+			$http({url: link, method: "POST", data: $scope.masterMemberPlan}).success(function(data, status, headers, config) {
+				$scope.adduser = data;			
+			  location.reload(true); 
+				}).error(function(data, status, headers, config) {
+					$scope.getState = "Response Fail";
+				});
+			}
+
+		}
+//---{1.2}------------------------------------------------------ Set Flag Function ---------------------------------------		
+		$scope.setflag = function(){
+			$scope.masterMemberPlanError = 0;
+			$scope.masterMemberPlanAmountError = 0;
+			$scope.masterMembertenure_year = 0;
+			$scope.masterMemberRedemption_amountError = 0;
+			$scope.masterMemberRedemption_validityError = 0;
+			$scope.masterMemberFoodvoucherAmountError = 0;
+			$scope.masterMemberFoodvoucher_validityError = 0;
+		}
+		
+//--{1.3}---------------------------------------------------------------- Get By ID -----------------------------------------------
+		$scope.getMasterPlan = function(plan_id){
+			
+			var link = baseUrl+'getAllMemberNameById?plan_id='+plan_id;		
+			$http.get(link).success(function(data, status, headers, config) {			
+				$scope.plan_id=plan_id;
+				$scope.masterMemberPlan = data;							
+			}).error(function(data, status, headers, config) {
+				$scope.getAllMemberName = "Response Fail";
+			});
+			
+		
+		};
+		
+---{1.4}--------------------------------------------------------------- Edit By Id --------------------------------------------------	
+		$scope.editMasterMemberPlan = function(plan_id){
+			
+			if (!$scope.masterMemberPlan.plan_name) {			
+				$scope.masterMemberPlanError = 1;
+				$scope.masterMemberPlanMsg = "Enter Membership Plan";
+				document.getElementById("plan_name").focus();	
+				
+			} else if (!$scope.masterMemberPlan.plan_amount) {			
+				$scope.masterMemberPlanAmountError = 1;
+				$scope.masterMemberPlanAmountMsg = "Enter Membership Amount";
+				document.getElementById("plan_amount").focus();				
+			} 
+			
+			else if (!$scope.masterMemberPlan.tenure_year) {			
+				$scope.masterMembertenure_year = 1;
+				$scope.masterMembertenure_yearMsg = "Select tenure Year";
+				document.getElementById("tenure_year").focus();				
+			}
+			else if (!$scope.masterMemberPlan.redemption_amount) {			
+				$scope.masterMemberRedemption_amountError = 1;
+				$scope.masterMemberRedemption_amountMsg = "Enter Redemption Amount";
+				document.getElementById("redemption_amount").focus();				
+			}
+			else if (!$scope.masterMemberPlan.redemption_validity) {			
+				$scope.masterMemberRedemption_validityError = 1;
+				$scope.masterMemberRedemption_validitytMsg = "Select redemption validity";
+				document.getElementById("redemption_validity").focus();				
+			}
+			else if (!$scope.masterMemberPlan.foodvoucher_amount) {			
+				$scope.masterMemberFoodvoucherAmountError = 1;
+				$scope.masterMemberFoodvoucherAmountMsg = "Enter foodvoucher Amount";
+				document.getElementById("foodvoucher_amount").focus();				
+			}
+			else if (!$scope.masterMemberPlan.foodvoucher_validity) {			
+				$scope.masterMemberFoodvoucher_validityError = 1;
+				$scope.masterMemberFoodvoucher_validityMsg = "Select foodvoucher validity";
+				document.getElementById("foodvoucher_validity").focus();				
+			}
+			else{
+			
+			var link = baseUrl+'editMasterMemberPlan?plan_id='+plan_id;	
+			
+			
+			$http({url: link, method: "POST", data: $scope.masterMemberPlan}).success(function(data, status, headers, config) {
+				$scope.plan_id=plan_id;
+				$scope.editMasterMemberPlan = data;			
+			  location.reload(true); 
+				}).error(function(data, status, headers, config) {
+					$scope.editMasterMemberPlan = "Response Fail";
+				});
+			}
+		};
+		
+//---{1.5}-----------------------------------------------------------Delete By Id ----------------------------------------------------	
+		$scope.deleteMasterMemberPlan = function(plan_id) {
+			var link = baseUrl+'deleteMasterMemberPlan?plan_id='+plan_id;
+			
+			$http['delete'](link).success(function(data, status, headers, config) {
+				$scope.plan_id=plan_id;
+				$scope.deleteMasterMemberPlan = data;			
+			  location.reload(true); 
+				}).error(function(data, status, headers, config) {
+					$scope.deleteMasterMemberPlan = "Response Fail";
+				});
+		}
+		
+ // =[2]===================================================== Family Details JS =======================================================
+
+	$scope.addInsertRow=[];
+		$scope.addRow = function() {
+			console.log($scope.videoId);
+			
+			$scope.addInsertRow.push({'FirstName':$scope.FirstName, 'LastName':$scope.LastName, 'Relation1':$scope.Relation1, 'bday':$scope.bday});
+			
+			$scope.FirstName="";
+			$scope.LastName="";
+			$scope.Relation1="";
+			$scope.bday="";
+		};
+		
+		
+});
