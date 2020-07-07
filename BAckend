@@ -1,0 +1,113 @@
+package com.ui.dao;
+
+import java.util.List;
+
+import com.ui.model.MasterMemberPlan;
+import com.ui.model.MasterMemberRegister;
+
+public interface MasterMemberRegisterDAO {
+	
+	
+	// ================================================== UserDetails  ====================================
+	
+	  public String addMasterMemberRegister(MasterMemberRegister m);
+	   List<MasterMemberPlan> getMemberPlanType(int plan_id);
+	
+		
+	   	 //MasterMemberPlan getMemberById(int plan_id);
+		// String editMasterMemberPlan(MasterMemberPlan masterMemberPlan);
+		 // void deleteMasterMemberPlan(int plan_id);
+
+	  // ================================================== Family Details   c ====================================
+		/* public String addMasterMemberFamilyRegister(MasterMemberRegister m);	
+	   	 MasterMemberPlan getFamilyMemberById(int plan_id);	
+		 void deleteMasterFamilyMember(int plan_id); */
+	   
+	   
+	   // =[3]===================================================== Personal Information =======================================================
+		
+		/* public String addMasterMemberPersonalInfo(MasterMemberRegister m);
+	   	 MasterMemberPlan getMemberPersonalInfoById(int plan_id);	
+		 void deleteMemberPersonalInfo(int plan_id); */
+	   
+	   // =[4]===================================================== Nominee Information =======================================================
+			   
+	   /*public String addMasterMemberNomineeInfo(MasterMemberRegister m);
+	 	MasterMemberPlan getMemberNomineeInfoById(int plan_id);
+ 		void deleteMemberNomineeInfo(int plan_id); */
+	   
+	   /*
+	   [21] "insert into members_family_details	 ( members_family_id,member_family_first_name,member_family_middle_name, member_family_last_name, member_family_gender,member_family_type_of_relation, member_family_date_of_birth,member_family_blood_group,member_family_aadhar_number,member_family_image,
+	   		  member_family_email,member_family_mobile_no,member_family_phone, member_family_password,member_family_address1,member_family_address2, member_family_address3,member_family_pincode,member_family_coutry_id,member_family_state_id,member_family_city)
+	   		  values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	   		  
+	   		  	[15] " insert into member_nominee_details  9nominee_id, nominee_firstname,nominee_middlename,nominee_lastname,nominee_address,nominee_mobile_no,nominee_phone,
+	   		  nominee_email,nominee_address1,nominee_address2,nominee_address3, nominee_pincode,nominee_coutry_id,nominee_state_id,nominee_city)
+	   		  values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?) "; */
+
+
+}
+=================++++++++++++++++++++++++++++++++-==============================-=+++++++++++++++++++++++++++++++++++++++
+
+	/* ========== Family Details Column=============== */
+	
+	private int members_family_id;
+	private String member_family_first_name;
+	private String member_family_middle_name;
+	private String member_family_last_name;
+	private int member_family_gender;
+	private int member_family_type_of_relation;
+	private String member_family_date_of_birth;
+	private int member_family_blood_group;
+	private String member_family_aadhar_number;
+	private String member_family_image;
+	private String member_family_email;
+	private String  member_family_mobile_no;
+	private String  member_family_phone;
+	private String member_family_password;
+	private String member_family_address1;
+	private String member_family_address2;
+	private String member_family_address3;
+	private int member_family_pincode;
+	private int member_family_coutry_id;
+	private int member_family_state_id;
+	private int member_family_city;
+	
+	
+	
+	/* ========== Personal Details Column=============== */
+
+	
+//	private int member_id;
+	private int member_profession;
+	private int member_other_Club_membership;
+	private int member_club_name;
+	private String member_marriage_anniversary;
+	//private int members_family_id;
+	//private int member_family_type_of_relation;
+	private String member_family_choices;
+	private int member_house_owend;
+	private int address_type_id;
+
+	/* ========== Nominee Details Column=============== */
+	
+	
+	
+	//private int member_id;
+	private int nominee_id;
+	private String nominee_firstname;
+	private String nominee_middlename;
+	private String nominee_lastname;
+	private String nominee_address;
+	private String nominee_mobile_no;
+	private String nominee_phone;
+	private String nominee_email;
+	private String nominee_address1;
+	private String nominee_address2;
+	private String nominee_address3;
+	private int nominee_pincode;
+	private int nominee_coutry_id;
+	private int nominee_state_id;
+	private int nominee_city;
+
+	
