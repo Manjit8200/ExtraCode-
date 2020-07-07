@@ -203,7 +203,7 @@ function openClass(oldcity,newcity,cityName) {
 	<div class="" id="collapseCardExample" >
 	   <div class="" >
 <!--===================================================== User Register Details ======================================================= -->            
-	  <form class="" ng-submit="addBatch()">
+	  <form class="" ng-submit="addMasterMemberRegister()">
 	    
 	    <div id="London" class="tabcontent"> <br>
           <div class="box-header with-border card shadow mb-4 col-lg-12" style="padding-top:15px;background-color: #f8f9fc;">
@@ -214,61 +214,76 @@ function openClass(oldcity,newcity,cityName) {
      		<div class="col-md-4" >
 				<div class="form-group">
 					<label>Membership Plan <span class="errormsg">*</span></label> 
-					<select class="form-control input-lg2" name="" id="eventDrop" ng-model="membershipRegister" ng-change="getMembers()">
-						<option value="" selected> Select Membership Plan</option>
-						<option value=""> Gold</option>
-						<option value=""> Silver</option>
-						<option value=""> Classic</option>
+					<select class="form-control input-lg2" name="plan_id" id="plan_id" ng-model="masterMemberRegister.plan_id" 	 ng-change="setflag()| typeschange()">
+							 <option value=""> Select Plan </option>
+							   <option ng-repeat="item in getAllMemberNameList" value="{{item.plan_id}">{{item.plan_name}}</option>
 					</select>
+					<p class="errormsg" ng-show="masterMemberRegisterplan_idError == 1">{{masterMemberRegisterplan_idMsg}}</p>
 				</div>
 			</div>
   			<div class="col-lg-4 " style="float:right">
 				<label> Enrollment No. <span class="errormsg">*</span></label> 
-				<input class="form-control" placeholder=" Enrollment Number " readonly ng-model="Enrollment" id="courseTitle" type="text">
+				<input class="form-control" placeholder=" Enrollment Number " readonly ng-model="masterMemberRegister.membership_number" 	 ng-change="setflag()" id="membership_number" type="text">
 				<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 			</div>
 		</div>
 		<div class="row form-group"> <!-------------------------------------- Row Start -->
-			<div class="col-md-4" >
-				<div class="form-group">
-					<label>Tenure <span class="errormsg">*</span></label> 
-					<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="city" ng-change="getMembers()">
-						<option value="" selected> Select Tenure</option>
-						<option value="" > 1 Year</option>
-						<option value="" > 2 Year</option>
-						<option value="" > 3 Year</option>
-						<option value="" > 4 Year</option>
-						<option value="" > 5 Year</option>													
-					</select>
-			   </div>
-		    </div>
+			<div class="col-lg-3">
+									    	<label>tenure  <span class="errormsg">*</span></label> 
+											<select class="form-control select2 " style="width:100%;"ng-change="setflag()" name="tenure_year" id="tenure_year"  ng-model="masterMemberRegister.tenure_year">
+													<option value="" selected> Select Redemption Validity </option>
+													<option value="1"> 1 Year</option>
+													<option value="2"> 2 Year</option>
+													<option value="3"> 3 Year</option>
+													<option value="4"> 4 Year</option>
+													<option value="5"> 5 Year</option>
+													<option value="6"> 6 Year</option>
+													<option value="7"> 7 Year</option>
+													<option value="8"> 8 Year</option>
+													<option value="9"> 9 Year</option>
+													<option value="10"> 10 Year</option>
+													<option value="11"> 11 Year</option>
+													<option value="12"> 12 Year</option>
+													<option value="13"> 13 Year</option>
+													<option value="14"> 14 Year</option>
+													<option value="15"> 15 Year</option>
+													<option value="16"> 16 Year</option>
+													<option value="17"> 17 Year</option>
+													<option value="18"> 18 Year</option>
+													<option value="19"> 19 Year</option>
+													<option value="20"> 20 Year</option>
+													 
+												</select>
+											<p class="errormsg" ng-show="masterMembertenure_year == 1">{{masterMembertenure_yearMsg}}</p>
+										</div>
+								
 			<div id="example" class="col-lg-4 demo-section k-content" >
 				<label> Start Date <span class="errormsg">*</span></label>
-				<input class="KendoDate " id="fromdatetimepicker" title="fromdatetimepicker"  ng-model="maxdate" style="width: 100%;" />
-				<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+				<input class="KendoDate " id="fromdatetimepicker" title="StartDate" 	 ng-change="setflag()" ng-model="masterMemberRegister.start_date" style="width: 100%;" />
+				<p class="errormsg" ng-show="masterMemberRegisterStartdateError == 1">{{masterMemberRegisterStart_dateMsg}}</p>
 			</div>
 			<div id="example" class="col-lg-4 demo-section k-content" >
 				<label> Membership Expiry Date <span class="errormsg">*</span></label>
-				<input class="KendoDate " id="fromdatetimepicker1" title="fromdatetimepicker"  ng-model="maxdate" style="width: 100%;" />
-				<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+				<input class="KendoDate " id="fromdatetimepicker1" title="EndDate" 	 ng-change="setflag()" ng-model="masterMemberRegister.end_date" style="width: 100%;" />
+				<p class="errormsg" ng-show="masterMemberRegisterEnddateError == 1">{{masterMemberRegisterMsg}}</p>
 			</div>										
 		</div>
 			
 		 <div class="form-group row">  <!------------------------------------ Row Start -->
   				 <div class="col-lg-4" >
 					<label>First Name <span class="errormsg">*</span></label> 
-					<input class="form-control" placeholder=" Enter First Name  " ng-model="FirstName" id="courseTitle" type="text">
-					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+					<input class="form-control" placeholder=" Enter First Name  " 	 ng-change="setflag()" ng-model="masterMemberRegister.member_firstname" id="firstname" type="text">
+					<p class="errormsg" ng-show="masterMemberRegistermember_firstnameError == 1">{{masterMemberRegistermember_firstnameMsg}}</p>
 				 </div>
 				<div class="col-lg-4"  >
 					<label> Middle Name <span class="errormsg">*</span></label> 
-					<input class="form-control" placeholder=" Enter Middle Name " ng-model="MiddleName" id="courseTitle" type="text">
+					<input class="form-control" placeholder=" Enter Middle Name " 	 ng-change="setflag()" ng-model="masterMemberRegister.member_middlename" id="member_middlename" type="text">
 					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 				</div>
 				<div class="col-lg-4 "  >
 				   	<label>Last Name <span class="errormsg">*</span></label> 
-					<input class="form-control" placeholder=" Enter Last Name " ng-model="LastName" id="courseTitle" type="text">
-					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+					<input class="form-control" placeholder=" Enter Last Name " 	 ng-change="setflag()" ng-model="masterMemberRegister.member_lastname" name="member_lastname" id="member_lastname" type="text">
+					<p class="errormsg" ng-show="masterMemberRegistermember_lastnameError == 1">{{masterMemberRegistermember_lastnameMsg}}</p>
 				</div>							
 		</div>
 																	
@@ -279,17 +294,17 @@ function openClass(oldcity,newcity,cityName) {
       <div class="form-group row"><!------------------------------------ Row Start -->
 	  			<div class="col-lg-4 " >
 				   	<label>Address Line 1 <span class="errormsg">*</span></label> 
-					<input class="form-control" placeholder=" Enter Your Address  " ng-model="Address1" id="courseTitle" type="text">
-					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+					<input class="form-control" placeholder=" Enter Your Address  " ng-model="masterMemberRegister.address_line_1" id="address_line_1" type="text">
+					<p class="errormsg" ng-show="masterMemberRegisteraddress_line_1Error == 1">{{masterMemberRegisteraddress_line_1Msg}}</p>
 				</div>
 				<div class="col-lg-4 "  >
 			    	<label> Address Line 2</label> 
-						<input class="form-control" placeholder="  Enter Your Address" ng-model="Address2" id="courseTitle" type="text">
+						<input class="form-control" placeholder="  Enter Your Address" ng-model="masterMemberRegister.address_line_2" id="address_line_2" type="text">
 						<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 				</div>
 			    <div class="col-lg-4  "  >
 				  	<label>Address Line 3 </label> 
-					<input class="form-control" placeholder=" Enter Your Address" ng-model="Address3" id="courseTitle" type="text">
+					<input class="form-control" placeholder=" Enter Your Address" ng-model="masterMemberRegister.address_line_3" id="address_line_3" type="text">
 					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 				</div>									
 		</div>
@@ -297,30 +312,40 @@ function openClass(oldcity,newcity,cityName) {
 				<div class="col-md-3" >
 					 <div class="form-group">
 						<label>Country <span class="errormsg">*</span></label> 
-						<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="country" ng-change="getMembers()">
-								<option value=""> Select Country</option>
-					   		    <option ng-repeat="item in allCourses" value="{{item.courceId}}">{{item.courceTitle}}</option>
+						<select class="form-control input-lg2" name="member_country_id"  ng-change="setflag()"  id="member_country_id" ng-model="masterMemberRegister.member_country_id" >
+								<option value="" > Select Country</option>
+								<option value="1">India</option>
+								<option value="2">USA</option>
+								
+					   		   <!--  <option ng-repeat="item in allCourses" value="{{item.courceId}}">{{item.courceTitle}}</option> -->
 						</select>
+						<p class="errormsg" ng-show="masterMemberRegistermember_country_idError == 1">{{masterMemberRegistermember_country_idMsg}}</p>
 					</div>
 					  </div>
 					 <div class="col-md-3" >
 							<div class="form-group">
 								<label>State <span class="errormsg">*</span></label> 
-								<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="state" ng-change="getMembers()">
-					  			  <option value=""> Select State</option>						
+								<select class="form-control input-lg2" ng-change="setflag()"  name="member_state_id" id="member_state_id" ng-model="masterMemberRegister.member_state_id">
+					  			  <option value="" > Select State</option>	
+					  			  <option value="1">Gujarat</option>
+					  			  <option value="2">Dehli</option>					
 								</select>
+								<p class="errormsg" ng-show="masterMemberRegistermember_state_idError == 1">{{masterMemberRegistermember_state_idMsg}}</p>
+								
 							</div>
 					</div>
 					<div class="col-md-3" >
 							<div class="form-group">
 									<label>City <span class="errormsg">*</span></label> 
-										<input class="form-control" placeholder=" Enter Your Pincode" ng-model="pincode" id="courseTitle" type="text">
+										<input class="form-control" placeholder=" Enter Your Pincode" ng-change="setflag()" ng-model="masterMemberRegister.member_city" id="member_city" type="text">
 							</div>
+							<p class="errormsg" ng-show="masterMemberRegistermember_cityError == 1">{{masterMemberRegistermember_cityMsg}}</p>
+							
 					</div>				
 					<div class="col-lg-3 "  >
 						    	<label>Pincode <span class="errormsg">*</span></label> 
-								<input class="form-control" placeholder=" Enter Your Pincode" ng-model="pincode" id="courseTitle" type="text">
-								<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+								<input class="form-control" placeholder=" Enter Your Pincode" ng-model="masterMemberRegister.pincode" id="pincode" type="number" ng-change="setflag()" >
+								<p class="errormsg" ng-show="masterMemberRegisterpincodeError == 1">{{masterMemberRegisterpincodeMsg}}</p>
 					</div>		
 		   </div>
 						
@@ -330,34 +355,34 @@ function openClass(oldcity,newcity,cityName) {
 		   <div class="form-group row"> <!------------------------------------ Row Start -->
 				<div class="col-lg-3 "  >
 				   	<label> Phone Number</label> 
-					<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="Address3" id="courseTitle" type="number">
+					<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="masterMemberRegister.member_phone" id="member_phone" ng-change="setflag()"  type="number">
 					<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 				</div>	
 				<div class="col-lg-3 "  >
 			    	<label> Mobile Number <span class="errormsg">*</span></label> 
-						<input class="form-control" placeholder=" Enter Your Mobile Number" ng-model="Address3" id="courseTitle" type="number">
-						<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+						<input class="form-control" placeholder=" Enter Your Mobile Number" ng-model="masterMemberRegister.member_mobile_no" id="member_mobile_no" ng-change="setflag()"  type="number">
+						<p class="errormsg" ng-show="masterMemberRegistermember_mobile_noError == 1">{{masterMemberRegistermember_mobile_noMsg}}</p>
 				</div>		
 				<div class="col-lg-3" >
 				   	<label>Email  <span class="errormsg">*</span></label> 
-						<input class="form-control" placeholder=" Enter Your Email  " ng-model="Address1" id="courseTitle" type="email">
-						<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+						<input class="form-control" placeholder=" Enter Your Email  " ng-model="masterMemberRegister.member_email" id="member_email" ng-change="setflag()"  type="email">
+						<p class="errormsg" ng-show="masterMemberRegistermember_emailError == 1">{{masterMemberRegistermember_emailMsg}}</p>
 				</div>
 				<div class="col-lg-3 "  >
 				   	<label> Password <span class="errormsg">*</span></label> 
-						<input class="form-control" placeholder="  Enter Your Password" ng-model="Address2" id="courseTitle" type="password">
-						<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+						<input class="form-control" placeholder="  Enter Your Password" ng-model="masterMemberRegister.password" id="password" ng-change="setflag()"  type="password">
+						<p class="errormsg" ng-show="masterMemberRegisterpasswordError == 1">{{masterMemberRegisterpasswordMsg}}</p>
 				</div>
 			</div>	
 									
 		<div class="form-group row">  <!------------------------------------ Row Start -->
-				<div class="col-lg-3">							
+				<!-- <div class="col-lg-3">							
 					<img src="https://www.w3schools.com/howto/img_avatar.png" height="140" width="220" style="border:1px solid black;margin-top:15px;"  id="blah1" alt="Image preview...">
-				</div>							
+				</div>	 -->						
 				<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 							<label> User Picture </label>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input input-group-lg" onchange="previewFile()" ng-model="image1" id="blah" name="CourseImageEdit"> 					
+									<input type="file" class="custom-file-input input-group-lg" onchange="previewFile()" ng-model="masterMemberRegister.member_image" id="blah" name="member_image"> 					
 										<label class="custom-file-label" for="customFile">{{picture}}</label>
 								</div>				
 				</div>
@@ -369,11 +394,12 @@ function openClass(oldcity,newcity,cityName) {
 					<strong ng-show="albumSubmitError == 1" style="color: red;"><span class="fa fa-times-circle"></span> {{errorMsg}}</strong>
 				</div>										
 				<div class="col-md-4 text-right">
-					<button onclick="openClass('UserDetails','FamilyDetails', 'Paris')" type="submit" ng-disabled="spin == 1" class="btn btn-success tablinks"><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Save & Next</button>																						</div>
+					<button ng-click="addMasterMemberRegister()" type="submit" ng-disabled="spin == 1" class="btn btn-success tablinks"><i class="fa fa-refresh fa-spin" ng-if="spin == 1"></i> Save & Next</button>																						</div>
+				 <!-- onclick="openClass('UserDetails','FamilyDetails', 'Paris')" -->
 				</div>	
 		</div>	
 <!-- ============================================= Family Details===================================== -->							
-			<div id="Paris" class="tabcontent">
+					<div id="Paris" class="tabcontent">
 						<div class="box-header with-border card shadow mb-4" style="padding-top:15px;background-color: #f8f9fc;">
 							<h3 class="box-title" style="color:#4A2818;"> Family Details</h3>
 						</div>							
@@ -381,18 +407,18 @@ function openClass(oldcity,newcity,cityName) {
 									 <div class="form-group row">
 						   				 <div class="col-lg-4 " >
 									    	<label>First Name <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter First Name  " ng-model="FirstName" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter First Name  " ng-model="masterMemberRegister.member_family_first_name" id="member_family_first_name" type="text">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_first_nameError == 1">{{masterMemberRegistemember_family_first_nameMsg}}</p>
 										</div>
 										<div class="col-lg-4 c "  >
 									    	<label> Middle Name <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Middle Name " ng-model="MiddleName" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Middle Name " ng-model="MmasterMemberRegister.member_family_middle_name" id="member_family_middle_name" type="text">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_middle_nameError == 1">{{masterMemberRegistermember_family_middle_nameMsg}}</p>
 										</div>
 										<div class="col-lg-4 "  >
 									    	<label>Last Name <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Last Name " ng-model="LastName" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Last Name " ng-model="masterMemberRegister.member_family_last_name" id="member_family_last_name" type="text">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_last_nameError == 1">{{masterMemberRegistermember_family_last_nameMsg}}</p>
 										</div>
 										
 										
@@ -400,18 +426,18 @@ function openClass(oldcity,newcity,cityName) {
 									<div class="form-group row">
   									    <div class="col-lg-4 " >
 									    	<label>Address Line 1 <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Your Address  " ng-model="Address1" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Address  " ng-model="masterMemberRegister.member_family_address1" id="courseTitle" type="text">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_address1Error == 1">{{masterMemberRegistermember_family_address1Msg}}</p>
 										</div>
 										<div class="col-lg-4 "  >
 									    	<label> Address Line 2</label> 
-											<input class="form-control" placeholder="  Enter Your Address" ng-model="Address2" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder="  Enter Your Address" ng-model="masterMemberRegister.member_family_address2" id="courseTitle" type="text">
+											
 										</div>
 										<div class="col-lg-4  "  >
 									    	<label>Address Line 3 </label> 
-											<input class="form-control" placeholder=" Enter Your Address" ng-model="Address3" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Address" ng-model="masterMemberRegister.member_family_address3" id="courseTitle" type="text">
+											
 										</div>
 										
 										
@@ -420,34 +446,37 @@ function openClass(oldcity,newcity,cityName) {
 										<div class="col-md-3" >
 											<div class="form-group">
 											<label>Country <span class="errormsg">*</span></label> 
-												<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="country" ng-change="getMembers()">
+												<select class="form-control input-lg2" name="member_family_coutry_id" id="member_family_coutry_id" ng-model="masterMemberRegister.member_family_coutry_id" ng-change="getMembers()">
 													<option value=""> Select Country</option>
 													<option ng-repeat="item in allCourses" value="{{item.courceId}}">{{item.courceTitle}}</option>
 												</select>
+												<p class="errormsg" ng-show="masterMemberRegistermember_family_coutry_idError == 1">{{masterMemberRegistermember_family_coutry_idMsg}}</p>
 											</div>
 										</div>
 										
 										<div class="col-md-3" >
 											<div class="form-group">
 											<label>State <span class="errormsg">*</span></label> 
-												<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="state" ng-change="getMembers()">
+												<select class="form-control input-lg2" name="member_family_state_id" id="member_family_state_id" ng-model="masterMemberRegister.member_family_state_id" ng-change="getMembers()">
 													<option value=""> Select State</option>
 													
 												</select>
+												<p class="errormsg" ng-show="masterMemberRegistermember_family_state_idError == 1">{{masterMemberRegistermember_family_state_idMsg}}</p>
 											</div>
 										</div>
 										<div class="col-md-3" >
 											<div class="form-group">
 											<label>City <span class="errormsg">*</span></label> 
-												<input class="form-control" placeholder=" Enter Your City" ng-model="pincode" id="courseTitle" type="text">
+												<input class="form-control" placeholder=" Enter Your City" ng-model="masterMemberRegister.member_family_city" id="member_family_city" type="text">
 											</div>
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_cityError == 1">{{masterMemberRegistermember_family_cityMsg}}</p>
 										</div>
 										
 								
 								<div class="col-lg-3 "  >
 									    	<label>Pincode <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Your Pincode" ng-model="pincode" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Pincode" ng-model="masterMemberRegister.member_family_pincode" id="member_family_pincode" type="number">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_pincodeError == 1">{{masterMemberRegistermember_family_pincodeMsg}}</p>
 										</div>
 			</div>
 							<div class="form-group row">
@@ -455,7 +484,7 @@ function openClass(oldcity,newcity,cityName) {
   									 
 										<div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
 											<label> Relation <span class="errormsg">*</span></label> 
-											<select class="form-control" ng-model="Relation1" id="Relation">
+											<select class="form-control" ng-model="masterMemberRegister.member_family_type_of_relation" id="member_family_type_of_relation">
 												<option value="" selected>Select Relation</option>
 													<option value="Father">Father</option>
 													<option value="Mother">Mother</option>
@@ -464,26 +493,27 @@ function openClass(oldcity,newcity,cityName) {
 													
 												<!-- <option ng-repeat="item in getCurrency" value="{{item.currencyId}}">{{item.currencyCode}}</option> -->
 											</select>
-										
+										<p class="errormsg" ng-show="masterMemberRegistermember_family_type_of_relationError == 1">{{masterMemberRegistermember_family_type_of_relationMsg}}</p>
 										</div>
 										<div id="example" class="col-lg-3 demo-section k-content">
 											<label>  Date of Birth <span class="errormsg">*</span></label>
-											<input class="KendoDate" id="fromdatetimepicker3" title="fromdatetimepicker"3 ng-model="bday" style="width: 100%;" />
-											<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+											<input class="KendoDate" id="fromdatetimepicker3" title="fromdatetimepicker"3 ng-model="masterMemberRegister.member_family_date_of_birth" style="width: 100%;" />
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_date_of_birthError == 1">{{masterMemberRegistermember_family_date_of_birthMsg}}</p>
 										</div>
 										<div class="col-lg-3 col-md-2 col-sm-6 col-xs-12">
 											<label> Gender<span class="errormsg">*</span> </label> 
-											<select class="form-control" ng-model="Gender" id="Gender">
+											<select class="form-control" ng-model="masterMemberRegister.member_family_gender" id="member_family_gender">
 												<option value="">Male</option>
 													<option value="">Female</option>					
 											</select>							
 										</div>
 										<div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
 											<label> Blood Group<span class="errormsg">*</span> </label> 
-											<select class="form-control" ng-model="bgroup" id="Gender">
+											<select class="form-control" ng-model="masterMemberRegister.member_family_blood_group" id="member_family_blood_group">
 												<option value="">A+</option>
 													<option value="">B+</option>					
-											</select>							
+											</select>	
+									<p class="errormsg" ng-show="masterMemberRegistermember_family_blood_groupError == 1">{{masterMemberRegistermember_family_blood_groupMsg}}</p>											
 										</div>
 										
 									
@@ -492,39 +522,39 @@ function openClass(oldcity,newcity,cityName) {
 									<div class="form-group row">
 										<div class="col-lg-3 "  >
 									    	<label> Phone Number </label> 
-											<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="Address3" id="courseTitle" type="number">
+											<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="masterMemberRegister.member_family_phone" id=" member_family_phone" type="number">
 											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 										</div>
 										<div class="col-lg-3 "  >
 									    	<label> Mobile Number <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Your Mobile Number" ng-model="Address3" id="courseTitle" type="number">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Mobile Number" ng-model="masterMemberRegister. member_family_mobile_no" id=" member_family_mobile_no" type="number">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_mobile_noError == 1">{{masterMemberRegistermember_family_mobile_noMsg}}</p>
 										</div>
   									    <div class="col-lg-3" >
 									    	<label>Email  <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Your Email  " ng-model="Address1" id="courseTitle" type="email">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Email  " ng-model="masterMemberRegister.member_family_email" id="courseTitle" type="email">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_emailError == 1">{{masterMemberRegistermember_family_emailMsg}}</p>
 										</div>
 										<div class="col-lg-3 "  >
 									    	<label> Password <span class="errormsg">*</span></label> 
-											<input class="form-control " placeholder="  Enter Your Password" ng-model="Address2" id="courseTitle" type="password">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control " placeholder="  Enter Your Password" ng-model="masterMemberRegister.member_family_password" id="courseTitle" type="password">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_passwordError == 1">{{masterMemberRegistermember_family_passwordMsg}}</p>
 										</div>
 									
 										
 										
 									</div>
 										<div class="form-group row">
-						<div class="col-lg-3">
+						<!-- <div class="col-lg-3">
 										
 							<img src="https://www.w3schools.com/howto/img_avatar.png" height="140" width="220"   style="border:1px solid black;margin-top:15px;"  id="blah3" alt="Image preview...">
 				
-										</div>
+										</div> -->
 										
 										<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 											<label> User Picture </label>
 											<div class="custom-file">
-												<input type="file" class="custom-file-input input-group-lg" onchange="previewFile1()" ng-model="image1" id="blah2" name="CourseImageEdit"> 
+												<input type="file" class="custom-file-input input-group-lg" onchange="previewFile1()" ng-model="masterMemberRegister.member_family_image" id="member_family_image" name="member_family_image"> 
 											
 												<label class="custom-file-label" for="customFile">{{picture}}</label>
 											</div>
@@ -584,9 +614,9 @@ function openClass(oldcity,newcity,cityName) {
 													</div>
 												</div>								
 									</div>								
-			</div>					
-				<!-- ================================ Personal Information ================================================ -->				
-			<div id="Tokyo" class="tabcontent">
+			</div>			
+	<!-- ================================ Personal Information ================================================ -->				
+<div id="Tokyo" class="tabcontent">
 		
 						<div class="box-header with-border card shadow mb-4" style="padding-top:15px;background-color: #f8f9fc;">
 							<h3 class="box-title" style="color:#4A2818;"> Personal Information</h3>
@@ -596,13 +626,13 @@ function openClass(oldcity,newcity,cityName) {
 						<div class="form-group row">
 						<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 											<label> Status <span class="errormsg">*</span></label> 
-											<select class="form-control" ng-model="status" id="Relation" >
+											<select class="form-control" ng-model="masterMemberRegister.member_profession" id="member_profession" >
 												<option value="">Business</option>
 													<option value="">Profesional</option>
 													<option value="">Employed</option>
 												<option value="others">Others</option>
 											</select>
-										
+										<p class="errormsg" ng-show="masterMemberRegistermember_professionError == 1">{{masterMemberRegistemember_professionMsg}}</p>
 										</div>
 										<div class="col-lg-3 " ng-show="status=='others'">
 									    	<label>Other Status<span class="errormsg">*</span></label> 
@@ -613,17 +643,18 @@ function openClass(oldcity,newcity,cityName) {
 										
 										<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 											<label> Other Club Membership <span class="errormsg">*</span></label> 
-											<select class="form-control" ng-model="otherclub" id="Relation" >
+											<select class="form-control" ng-model="masterMemberRegister.member_other_Club_membership" id="member_other_Club_membership" >
 												<option value="">Yes</option>
 												<option value="">No</option>
 												
 											</select>
+											
 										</div>
 						
 					<div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
 						<label>Name Of Club</label> 
 							<div class="form-group input-group ">
-								<select class="form-control" ng-model="BatchID" id="BatchID" ng-change="getBatchTimingsById(BatchID)">
+								<select class="form-control" ng-model="masterMemberRegister.member_club_name" id="member_club_name" >
 									<option value="" selected>Select Your Club</option>
 												<option value="">Club 1</option>
 												<option value="">CLub 2</option>
@@ -632,9 +663,9 @@ function openClass(oldcity,newcity,cityName) {
 										<i class="fa fa-plus"></i>
 									</button>
 								</span>
-
+					<p class="errormsg" ng-show="masterMemberRegistermember_other_Club_membershipError == 1">{{masterMemberRegistermember_other_Club_membershipMsg}}</p>
 							</div>
-							<p class="errormsg" ng-show="batchIDError == 1">{{batchIDMsg}}</p>
+							
 						</div>
 							
 								
@@ -642,26 +673,27 @@ function openClass(oldcity,newcity,cityName) {
 						<div class="form-group row">
 						
 										<div id="example" class="col-lg-3 demo-section k-content" style="align:right">
-											<label> Marriage Anniversary <span class="errormsg">*</span></label>
-											<input  class="KendoDate" id="fromdatetimepicker8" title="fromdatetimepicker" ng-model="Anniversary" style="width: 100%;" />
-											<p class="errormsg" ng-show="startDateError == 1">{{startDateMsg}}</p>
+											<label> Marriage Anniversary </label>
+											<input  class="KendoDate" id="fromdatetimepicker8" title="fromdatetimepicker" ng-model="masterMemberRegister.member_marriage_anniversary" style="width: 100%;" />
+											
 										</div>
 							<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
 												<label> House Owned <span class="errormsg">*</span></label> 
-												<select class="form-control" ng-model="HouseOwned " id="Relation" >
+												<select class="form-control" ng-model="masterMemberRegister.member_house_owend " id="member_house_owend" >
 													<option value="">Owned</option>
 													<option value="">Leased</option>
 													<option value="">Company</option>
 													
 												</select>
+						<p class="errormsg" ng-show="masterMemberRegistermember_house_owendError == 1">{{masterMemberRegistermember_house_owendMsg}}</p>
 							</div>
 						</div>
 					
 						<div class="form-group row">
 
   									    <div class="col-lg-4 " >
-									    	<label> Name of Member<span class="errormsg">*</span></label> 
-										<select class="form-control" ng-model="HouseOwned " id="Relation" >
+									    	<label> Name of Member</label> 
+										<select class="form-control" ng-model="masterMemberRegister.members_family_id " id="members_family_id" >
 													
 													<option value="" selected>Select Member</option>
 													<option value="">Name 1</option>
@@ -672,8 +704,8 @@ function openClass(oldcity,newcity,cityName) {
 											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 										</div>
 										<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-											<label> Relation <span class="errormsg">*</span></label> 
-											<select class="form-control" ng-model="Relation2" id="Relation">
+											<label> Relation</label> 
+											<select class="form-control" ng-model="masterMemberRegister.member_family_type_of_relation" id="member_family_type_of_relation">
 												<option value="">Self</option>
 													<option value="">Father</option>
 												<!-- <option ng-repeat="item in getCurrency" value="{{item.currencyId}}">{{item.currencyCode}}</option> -->
@@ -682,8 +714,8 @@ function openClass(oldcity,newcity,cityName) {
 										</div>
 									
 										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-											<label> Choice<span class="errormsg">*</span> </label> 
-											<select class="form-control" ng-model="Choice" id="Choice">
+											<label> Choice </label> 
+											<select class="form-control" ng-model="masterMemberRegister.member_family_choices" id="member_family_choices">
 												<option value="">Choice1</option>
 												<option value="">Choice 2</option>	
 												<option value="">Choice 3</option>
@@ -740,8 +772,8 @@ function openClass(oldcity,newcity,cityName) {
 											</div>						
 			</div>						
 </div>
-
-				<div id="India" class="tabcontent">
+<!-- ============================================================================Nominee Details====================================== -->
+		<div id="India" class="tabcontent">
 										<div class="box-header with-border card shadow mb-4" style="padding-top:15px;background-color: #f8f9fc;">
 												<h3 class="box-title" style="color:#4A2818;"> Nominee Details </h3>
 											</div>
@@ -752,18 +784,18 @@ function openClass(oldcity,newcity,cityName) {
 
   									    <div class="col-lg-4 " >
 									    	<label>First Name <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter First Name  " ng-model="fname" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter First Name  " ng-model="masterMemberRegister.nominee_firstname" id="nominee_firstname" type="text">
+											<p class="errormsg" ng-show="masterMemberRegisternominee_firstnameError == 1">{{masterMemberRegisternominee_firstnameMsg}}</p>
 										</div>
 										<div class="col-lg-4 c "  >
 									    	<label> Middle Name <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Middle Name " ng-model="mname" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Middle Name " ng-model="masterMemberRegister.nominee_middlename" id="nominee_middlename" type="text">
+											<p class="errormsg" ng-show="masterMemberRegistermember_family_last_nameError == 1">{{masterMemberRegistermember_family_last_nameMsg}}</p>
 										</div>
 										<div class="col-lg-4 "  >
 									    	<label>Last Name <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Last Name " ng-model="lname" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Last Name " ng-model="masterMemberRegister.nominee_lastname" id="nominee_lastname" type="text">
+											<p class="errormsg" ng-show="masterMemberRegisternominee_lastnameError == 1">{{masterMemberRegisternominee_lastnameMsg}}</p>
 										</div>
 										
 										
@@ -772,18 +804,18 @@ function openClass(oldcity,newcity,cityName) {
 
   									    <div class="col-lg-4 " >
 									    	<label>Address Line 1 <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Your Address  " ng-model="add1" id="courseTitle" type="text">
+											<input class="form-control" placeholder=" Enter Your Address  " ng-model="masterMemberRegister.nominee_address1" id="nominee_address1" type="text">
 											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 										</div>
 										<div class="col-lg-4 "  >
 									    	<label> Address Line 2</label> 
-											<input class="form-control" placeholder="  Enter Your Address" ng-model="add2" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder="  Enter Your Address" ng-model="masterMemberRegister.nominee_address2" id="nominee_address2" type="text">
+											
 										</div>
 										<div class="col-lg-4  "  >
 									    	<label>Address Line 3 </label> 
-											<input class="form-control" placeholder=" Enter Your Address" ng-model="add3" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Address" ng-model="masterMemberRegister.nominee_address3" id="nominee_address3" type="text">
+											
 										</div>
 									
 									</div>
@@ -791,34 +823,37 @@ function openClass(oldcity,newcity,cityName) {
 										<div class="col-md-3" >
 											<div class="form-group">
 											<label>Country <span class="errormsg">*</span></label> 
-												<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="country" ng-change="getMembers()">
+												<select class="form-control input-lg2" name="eventDrop" id="nominee_coutry_id" ng-model="masterMemberRegister.nominee_coutry_id" ng-change="getMembers()">
 													<option value=""> Select Country</option>
 													<option ng-repeat="item in allCourses" value="{{item.courceId}}">{{item.courceTitle}}</option>
 												</select>
+												<p class="errormsg" ng-show="masterMemberRegisternominee_coutry_idError == 1">{{masterMemberRegisternominee_coutry_idMsg}}</p>
 											</div>
 										</div>
 										
 										<div class="col-md-3" >
 											<div class="form-group">
 											<label>State <span class="errormsg">*</span></label> 
-												<select class="form-control input-lg2" name="eventDrop" id="eventDrop" ng-model="state" ng-change="getMembers()">
+												<select class="form-control input-lg2" name="eventDrop" id="nominee_state_id" ng-model="masterMemberRegister.nominee_state_id" ng-change="getMembers()">
 													<option value=""> Select State</option>
 													
 												</select>
+												<p class="errormsg" ng-show="masterMemberRegisternominee_state_idError == 1">{{masterMemberRegisternominee_state_idMsg}}</p>
 											</div>
 										</div>
 										<div class="col-md-3" >
 											<div class="form-group">
 											<label>City <span class="errormsg">*</span></label> 
-												<input class="form-control" placeholder=" Enter Your City" ng-model="pincode" id="courseTitle" type="text">
+												<input class="form-control" placeholder=" Enter Your City" ng-model="masterMemberRegister.nominee_city" id="nominee_city" type="text">
 											</div>
+											<p class="errormsg" ng-show="masterMemberRegisternominee_cityError == 1">{{masterMemberRegisternominee_cityMsg}}</p>
 										</div>
 										
 								
 								<div class="col-lg-3 "  >
 									    	<label>Pincode <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Your Pincode" ng-model="pincode" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Pincode" ng-model="masterMemberRegister.nominee_pincode" id="nominee_pincode" type="text">
+											<p class="errormsg" ng-show="masterMemberRegisternominee_pincodeError == 1">{{masterMemberRegisternominee_pincodeMsg}}</p>
 										</div>
 					
 						</div>
@@ -826,18 +861,18 @@ function openClass(oldcity,newcity,cityName) {
 									<div class="form-group row">
 									   <div class="col-lg-3" >
 									    	<label>Phone Number </label> 
-											<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="mobile" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Phone Number" ng-model="masterMemberRegister.nominee_phone" id="nominee_phone" type="text">
+											
 										</div>
 
   									    <div class="col-lg-3" >
 									    	<label>Mobile self <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder=" Enter Your Mobile Number  " ng-model="mobile" id="courseTitle" type="text">
-											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+											<input class="form-control" placeholder=" Enter Your Mobile Number  " ng-model="masterMemberRegister.nominee_mobile_no" id="nominee_mobile_no" type="text">
+											<p class="errormsg" ng-show="masterMemberRegisternominee_mobile_noError == 1">{{masterMemberRegisternominee_mobile_noMsg }}</p>
 										</div>
 										<div class="col-lg-3 "  >
 									    	<label> Email  <span class="errormsg">*</span></label> 
-											<input class="form-control" placeholder="  Enter Your Email" ng-model="email" id="courseTitle" type="text">
+											<input class="form-control" placeholder="  Enter Your Email" ng-model="masterMemberRegister.nominee_email" id="nominee_email" type="text">
 											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
 										</div>
 										  
@@ -857,7 +892,7 @@ function openClass(oldcity,newcity,cityName) {
 		
 	
 
-</div>
+</div>		
 <!-- ====================================================== Payment Details -======================================= -->
 
 
@@ -1196,7 +1231,7 @@ $(document).ready(function () {
 	// create DateTimePicker from input HTML element
 	$("#fromdatetimepicker").kendoDatePicker({
 		format: "dd/MM/yyyy",
-		value: new Date(),
+		
 		dateInput: true
 	});
 	});
@@ -1261,7 +1296,7 @@ $(document).ready(function () {
 
 
 </script>
-<Script>
+<!-- <Script>
 
 function previewFile() {
 	  var preview = document.getElementById('blah1');
@@ -1295,231 +1330,7 @@ function previewFile1() {
 	  }
 	}
 
-</Script>
+</Script> -->
 </body>
 
 </html>
-
-
-
-================================================================================================
-=================================================================================================
-
-
-
-
-app.controller('UserCtrl', function($scope, $http, $window, $filter,
-		$location, $timeout) {
-	var baseUrl = $location.protocol() + "://" + location.host + u;
-
-
-
-
-   // ===================================================== User Register JS =======================================================
-
-
-	
-var baseUrl = $location.protocol() + "://" + location.host + u;
-	$scope.BatchStartTime = "06:00";
-	$scope.BatchEndTime = "07:00";
-	$scope.currentPage = 0;
-	$scope.pageSize = 5;
-	$scope.search = "";
-	$scope.startindex = $scope.currentPage;
-	$scope.pages = [5, 10, 20, 50, 100, 500,'All'];
-	
-	var link = baseUrl+'getMasterMemberPlanByPage?pagesize='+$scope.pageSize+'&startindex='+$scope.startindex;    
-	$http.get(link).success(function(data, status, headers, config) {
-		$scope.getAllMemberNameList = data;
-	}).error(function(data, status, headers, config) {
-		$scope.getAllMemberNameList = "Response Fail";
-	});
-	
-	$scope.changepage = function(){
-		if($scope.pageSize != "All"){
-			var link = baseUrl+'getMasterMemberPlanByPage?pagesize='+$scope.pageSize+'&startindex='+$scope.startindex;    
-			
-			$http.get(link).success(function(data, status, headers, config) {
-				$scope.getAllMemberNameList = data;
-			}).error(function(data, status, headers, config) {
-				$scope.getAllMemberNameList = "Response Fail";
-			});
-			
-		}else{
-			var link = baseUrl+'getAllMemberName';  
-			
-			$http.get(link).success(function(data, status, headers, config) {
-				$scope.getAllMemberNameList = data;
-				
-			}).error(function(data, status, headers, config) {
-				$scope.getAllMemberNameList = "Response Fail";
-			});
-			
-		}
-		
-	};
-	
-//---{1.1}----------------------------------------------------- Add Data In dataBase -----------------------------------------------------------------------
-	
-	$scope.masterMemberPlan="";
-		$scope.addMasterPlan = function(){
-		
-			if (!$scope.masterMemberPlan.plan_name) {			
-				$scope.masterMemberPlanError = 1;
-				$scope.masterMemberPlanMsg = "Enter Membership Plan";
-				document.getElementById("plan_name").focus();	
-				
-			} else if (!$scope.masterMemberPlan.plan_amount) {			
-				$scope.masterMemberPlanAmountError = 1;
-				$scope.masterMemberPlanAmountMsg = "Enter Membership Amount";
-				document.getElementById("plan_amount").focus();				
-			} 
-			
-			else if (!$scope.masterMemberPlan.tenure_year) {			
-				$scope.masterMembertenure_year = 1;
-				$scope.masterMembertenure_yearMsg = "Select tenure Year";
-				document.getElementById("tenure_year").focus();				
-			}
-			else if (!$scope.masterMemberPlan.redemption_amount) {			
-				$scope.masterMemberRedemption_amountError = 1;
-				$scope.masterMemberRedemption_amountMsg = "Enter Redemption Amount";
-				document.getElementById("redemption_amount").focus();				
-			}
-			else if (!$scope.masterMemberPlan.redemption_validity) {			
-				$scope.masterMemberRedemption_validityError = 1;
-				$scope.masterMemberRedemption_validitytMsg = "Select redemption validity";
-				document.getElementById("redemption_validity").focus();				
-			}
-			else if (!$scope.masterMemberPlan.foodvoucher_amount) {			
-				$scope.masterMemberFoodvoucherAmountError = 1;
-				$scope.masterMemberFoodvoucherAmountMsg = "Enter foodvoucher Amount";
-				document.getElementById("foodvoucher_amount").focus();				
-			}
-			else if (!$scope.masterMemberPlan.foodvoucher_validity) {			
-				$scope.masterMemberFoodvoucher_validityError = 1;
-				$scope.masterMemberFoodvoucher_validityMsg = "Select foodvoucher validity";
-				document.getElementById("foodvoucher_validity").focus();				
-			}
-			
-	
-			else {
-			
-			var link = baseUrl+'addMasterPlan';		
-			
-			$http({url: link, method: "POST", data: $scope.masterMemberPlan}).success(function(data, status, headers, config) {
-				$scope.adduser = data;			
-			  location.reload(true); 
-				}).error(function(data, status, headers, config) {
-					$scope.getState = "Response Fail";
-				});
-			}
-
-		}
-//---{1.2}------------------------------------------------------ Set Flag Function ---------------------------------------		
-		$scope.setflag = function(){
-			$scope.masterMemberPlanError = 0;
-			$scope.masterMemberPlanAmountError = 0;
-			$scope.masterMembertenure_year = 0;
-			$scope.masterMemberRedemption_amountError = 0;
-			$scope.masterMemberRedemption_validityError = 0;
-			$scope.masterMemberFoodvoucherAmountError = 0;
-			$scope.masterMemberFoodvoucher_validityError = 0;
-		}
-		
-//--{1.3}---------------------------------------------------------------- Get By ID -----------------------------------------------
-		$scope.getMasterPlan = function(plan_id){
-			
-			var link = baseUrl+'getAllMemberNameById?plan_id='+plan_id;		
-			$http.get(link).success(function(data, status, headers, config) {			
-				$scope.plan_id=plan_id;
-				$scope.masterMemberPlan = data;							
-			}).error(function(data, status, headers, config) {
-				$scope.getAllMemberName = "Response Fail";
-			});
-			
-		
-		};
-		
----{1.4}--------------------------------------------------------------- Edit By Id --------------------------------------------------	
-		$scope.editMasterMemberPlan = function(plan_id){
-			
-			if (!$scope.masterMemberPlan.plan_name) {			
-				$scope.masterMemberPlanError = 1;
-				$scope.masterMemberPlanMsg = "Enter Membership Plan";
-				document.getElementById("plan_name").focus();	
-				
-			} else if (!$scope.masterMemberPlan.plan_amount) {			
-				$scope.masterMemberPlanAmountError = 1;
-				$scope.masterMemberPlanAmountMsg = "Enter Membership Amount";
-				document.getElementById("plan_amount").focus();				
-			} 
-			
-			else if (!$scope.masterMemberPlan.tenure_year) {			
-				$scope.masterMembertenure_year = 1;
-				$scope.masterMembertenure_yearMsg = "Select tenure Year";
-				document.getElementById("tenure_year").focus();				
-			}
-			else if (!$scope.masterMemberPlan.redemption_amount) {			
-				$scope.masterMemberRedemption_amountError = 1;
-				$scope.masterMemberRedemption_amountMsg = "Enter Redemption Amount";
-				document.getElementById("redemption_amount").focus();				
-			}
-			else if (!$scope.masterMemberPlan.redemption_validity) {			
-				$scope.masterMemberRedemption_validityError = 1;
-				$scope.masterMemberRedemption_validitytMsg = "Select redemption validity";
-				document.getElementById("redemption_validity").focus();				
-			}
-			else if (!$scope.masterMemberPlan.foodvoucher_amount) {			
-				$scope.masterMemberFoodvoucherAmountError = 1;
-				$scope.masterMemberFoodvoucherAmountMsg = "Enter foodvoucher Amount";
-				document.getElementById("foodvoucher_amount").focus();				
-			}
-			else if (!$scope.masterMemberPlan.foodvoucher_validity) {			
-				$scope.masterMemberFoodvoucher_validityError = 1;
-				$scope.masterMemberFoodvoucher_validityMsg = "Select foodvoucher validity";
-				document.getElementById("foodvoucher_validity").focus();				
-			}
-			else{
-			
-			var link = baseUrl+'editMasterMemberPlan?plan_id='+plan_id;	
-			
-			
-			$http({url: link, method: "POST", data: $scope.masterMemberPlan}).success(function(data, status, headers, config) {
-				$scope.plan_id=plan_id;
-				$scope.editMasterMemberPlan = data;			
-			  location.reload(true); 
-				}).error(function(data, status, headers, config) {
-					$scope.editMasterMemberPlan = "Response Fail";
-				});
-			}
-		};
-		
-//---{1.5}-----------------------------------------------------------Delete By Id ----------------------------------------------------	
-		$scope.deleteMasterMemberPlan = function(plan_id) {
-			var link = baseUrl+'deleteMasterMemberPlan?plan_id='+plan_id;
-			
-			$http['delete'](link).success(function(data, status, headers, config) {
-				$scope.plan_id=plan_id;
-				$scope.deleteMasterMemberPlan = data;			
-			  location.reload(true); 
-				}).error(function(data, status, headers, config) {
-					$scope.deleteMasterMemberPlan = "Response Fail";
-				});
-		}
-		
- // =[2]===================================================== Family Details JS =======================================================
-
-	$scope.addInsertRow=[];
-		$scope.addRow = function() {
-			console.log($scope.videoId);
-			
-			$scope.addInsertRow.push({'FirstName':$scope.FirstName, 'LastName':$scope.LastName, 'Relation1':$scope.Relation1, 'bday':$scope.bday});
-			
-			$scope.FirstName="";
-			$scope.LastName="";
-			$scope.Relation1="";
-			$scope.bday="";
-		};
-		
-		
-});
