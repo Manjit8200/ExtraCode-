@@ -1,0 +1,15 @@
+ [1] Start date & End date change with tenuare
+ [2] Middle name Not requried 
+ [3] Image Croping and upload & save it.
+ [4] Mobile & Email Must be unique.
+ [5] Password Check {Strong Password}
+ [6] Family Details Add and remove all input data.
+ [7] Generate Family Member Code.
+ [8] Add Club Name & Multiple choice Select .
+ [9] Name of memeber choice multiple select.
+ [10] Get Data Family memeber name in dropdown
+ [11] In personal details form set in table proper name with user click Add button.
+ [12] Payment Details chnage design page.
+ [13] Click to user table and update user register form.
+ [14] Tax select and calculate the GST aith Plan Amount .
+ [15] Maintain All database.
