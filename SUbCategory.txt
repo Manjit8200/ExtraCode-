@@ -1,0 +1,879 @@
+///////////////////////////////////////////// jsp //////////////////////////////////////////////////////////////
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<title>Sub Category</title>
+
+<link rel="shortcut icon" href="<%=request.getContextPath() %>/resources/admin/img/favicon.ico">
+
+<!-- fonts -->
+<link href="<%=request.getContextPath() %>/resources/admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+<!-- styles -->
+<link href="<%=request.getContextPath() %>/resources/admin/css/sb-admin-2.min.css" rel="stylesheet">
+
+<!-- -->
+<link href="<%=request.getContextPath() %>/resources/admin/css/style.css" rel="stylesheet">
+
+<!-- Responsive -->
+<link href="<%=request.getContextPath() %>/resources/admin/css/responsive.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/admin/font-awesome-4.7.0/css/font-awesome.min.css">
+<!-- Custom styles for this page -->
+<link href="<%=request.getContextPath() %>/resources/admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+
+<script src="https://cdn.ckeditor.com/4.12.1/basic/ckeditor.js"></script>
+
+
+<!--***datetimepicker****-->
+<link rel="stylesheet" href="https://kendo.cdn.telerik.com/2018.1.221/styles/kendo.common-material.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/admin/datetimepicker/css/kendo.material.min.css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/admin/datetimepicker/css/kendo.material.mobile.min.css" />
+<script src="<%=request.getContextPath() %>/resources/admin/datetimepicker/js/jquery.min.js"></script>
+<script src="<%=request.getContextPath() %>/resources/admin/datetimepicker/js/kendo.all.min.js"></script>
+
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/admin/css/bootstrap-clockpicker.css" />
+<script src="<%=request.getContextPath() %>/resources/admin/js/bootstrap-clockpicker.js"></script>
+
+<link href="<%=request.getContextPath() %>/resources/admin/css/toastr.min.css" rel="stylesheet">
+
+<script	src="<%=request.getContextPath()%>/resources/admin/js/angular.min.js"></script>
+<script	src="<%=request.getContextPath()%>/resources/admin/js/controller/conf.js"></script>
+<script	src="<%=request.getContextPath()%>/resources/admin/js/controller/subcategory.js"></script>
+
+	<script>
+	$(function () {
+	    //Initialize Select2 Elements
+	    $(".select2").select2();
+	});
+
+</script>
+<style>
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+</style>
+
+</head>
+
+<body id="page-top" ng-app="prc" ng-controller="SubCategoryCtrl">
+
+	<!-- Page Wrapper -->
+	<div id="wrapper">
+
+
+		<!-- Sidebar -->
+			<!--/Left Navigation START-->
+			<%@include file="left-nav.jsp" %>
+			<!--/Left Navigation END-->
+		<!-- End of Sidebar -->
+
+
+		<!-- Content Wrapper -->
+		<div id="content-wrapper" class="d-flex flex-column">
+
+			<!-- Main Content -->
+			<div id="content">
+
+
+
+				<!-- Topbar -->
+				
+				<%@include file="header.jsp" %>
+				
+				<!-- End of Topbar -->
+
+
+
+
+				<div class="container-fluid">
+
+					<!-- Content Row -->
+					<div class="row">
+						<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+							<!-- Collapsable Card Example -->
+							<div class="card shadow mb-4">
+								<!-- Card Header - Accordion -->
+								<a href="#collapseCardExample" class="d-block card-header py-3"
+									data-toggle="collapse" role="button" aria-expanded="true"
+									aria-controls="collapseCardExample">
+									<h6 class="m-0 font-weight-bold text-light">Add Sub-Category Details
+									</h6>
+								</a>
+								<!-- Card Content - Collapse  class="collapse"-->
+								<div class="collapse hide" id="collapseCardExample">
+									<div class="card-body">
+
+
+									<form class="" ng-submit="addSubCategory()">
+
+							 <div class="form-group row">
+										<div class="col-lg-4">
+									    	<label>Category <span class="errormsg">*</span></label> 
+											<select class="form-control select2 input-lg2 " style="width:100%;"  name="category_id" id="category_id"  ng-model="subcategory.category_id" >
+													<option value="" selected> Select Category </option>
+													<option value="1"> Category 1</option>
+													<option value="2"> Category 2</option>
+													<option value="3"> Category 3</option>
+													<option value="4"> Category 4</option>
+													<option value="5"> Category 5</option>
+													<option value="6"> Category 6</option>
+													<option value="7">Category 7</option>
+												
+								
+													 
+												</select>
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>	
+										
+									
+ 						<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+							<label>Sub-Category Name <span class="errormsg">*</span></label>
+							<div class="form-group input-group ">
+								<input class="form-control" placeholder="Enter Sub-Category Name" name="sub_category_name" ng-model="subcategory.sub_category_name" id="sub_category_name" type="text">
+								
+
+							</div>
+							<p class="errormsg" ng-show="batchIDError == 1">{{batchIDMsg}}</p>
+						</div>
+
+										
+								
+										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+											<label> Sub-Category Code  <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder="Enter Sub-Category Code" name="sub_category_code"  ng-model="subcategory.sub_category_code" id="sub_category_code" type="text">
+										
+										</div>
+									
+										
+								</div>
+								   <div class="form-group row">			
+						
+								<div class="col-lg-4"  >
+									    	<label>Description</label> 
+											<input class="form-control" placeholder="Enter Description" name="sub_category_desc" ng-model="subcategory.sub_category_desc" id="sub_category_desc" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+											
+										
+							</div>	
+									
+					
+			
+											<div class="form-group row" style="margin-top:15px;">
+
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<button type="submit"  class="btn btn-md btn-success btn-block">
+														Submit  </button>
+												</div>
+
+											</div>
+
+
+
+										</form>
+
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+
+				<div class="container-fluid">
+					<div class="row">
+
+						<!-- Earnings (Monthly) Card Example -->
+						<div class="col-lg-12 col-md-12  col-sm-12 col-xl-12">
+							<!-- Collapsable Card Example -->
+							<div class="card shadow mb-4">
+
+								<!-- Card Header -->
+								<div class="card-header py-3">
+									<h6 class="m-0 font-weight-bold text-primary">All Sub-Category </h6>
+								</div>
+
+
+
+
+								<!-- Card Content -->
+								<div class="card-body" ng-init="subcategorylist()">
+
+									<div class="row">
+
+										<div class="col-sm-12 col-md-12">
+											<div class="table-responsive">
+												<table class="table table-bordered" id="dataTable"
+													width="100%" cellspacing="0">
+
+													<thead>
+														<tr>
+															<th style="width: 5%">#</th>
+															<th style="width: 20%">Sub-Category Name</th>
+															
+															<th style="width: 20%">Sub-Category code</th>
+															<th style="width: 20%">Sub-Category Description</th>
+														
+															<th class="text-center">Del.</th>
+														</tr>
+													</thead>
+
+
+													<tbody>
+
+
+														<tr ng-repeat="item in getAllMemberNameList">
+															<td  style="width: 5%">{{$index+1 }}</td>
+															<td  data-toggle="modal" data-target="#myModal" ng-click='getSubCategoryName(item.sub_category_id)' >{{item.sub_category_name}}</td>
+															
+															<td data-toggle="modal" data-target="#myModal" ng-click='getSubCategoryName(item.sub_category_id)' >{{item.sub_category_code}}</td>
+															<td data-toggle="modal" data-target="#myModal" ng-click='getSubCategoryName(item.sub_category_id)'>{{item.sub_category_desc}} </td>
+														
+														
+														 <!-- 	 <td> <center>
+														<a ng-click="deleteCategory(item.category_id)" style="cursor: pointer;" class="btn btn-danger">
+															<i class="fa fa-trash" style="color:white;" aria-hidden="true" data-toggle="tooltip" ></i>
+														</a>	</center>
+													</td>  -->
+														</tr>
+
+													
+													</tbody>
+
+												</table>
+											</div>
+										</div>
+									</div>
+
+									<hr class="mt-0">
+
+									<div class="row">
+
+										<div class="col-sm-12 col-md-5">
+											<div class="hint-text">Showing <b>{{startindex+1}}-{{getActivityList.length+startindex}}</b> out of <b>{{allcounts.activityCount}}</b> entries</div>
+										</div>
+
+										<div class="col-sm-12 col-md-7 text-right">
+											<div class="dataTables_paginate paging_simple_numbers"
+												id="dataTable_paginate">
+												<ul class="pagination pull-right">
+													<li class="paginate_button page-item previous disabled"
+														id="dataTable_previous"><a href="#"
+														aria-controls="dataTable" data-dt-idx="0" tabindex="0"
+														class="page-link">Previous</a></li>
+													<li class="paginate_button page-item active"><a
+														href="#" aria-controls="dataTable" data-dt-idx="1"
+														tabindex="0" class="page-link">{{currentPage+1}}</a></li>
+													<li class="paginate_button page-item next"
+														id="dataTable_next"><a href="#"
+														aria-controls="dataTable" data-dt-idx="7" tabindex="0"
+														class="page-link">Next</a></li>
+												</ul>
+											</div>
+										</div>
+
+									</div>
+
+
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+				</div>
+
+
+
+
+			</div>
+			<!-- End of Main Content -->
+
+			<%@include file="delete_modal.jsp" %>
+			<!--/#footer START-->
+			<%@include file="footer.jsp" %>
+			<!--/#footer END-->
+
+		</div>
+		<!-- End of Content Wrapper -->
+
+	</div>
+	<!-- End of Page Wrapper -->
+
+	<!-- Scroll to Top Button-->
+	<a class="scroll-to-top rounded" href="#page-top"> <i
+		class="fas fa-angle-up"></i>
+	</a>
+
+
+<div class="container">
+				<div class="modal fade" id="myModal" role="dialog">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title">Edit Location Details</h4>
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+							
+							</div>
+							<div class="modal-body">
+								
+				<form ng-submit="editCategory()">	
+						 
+												
+								
+				
+				
+
+									<form class="" ng-submit="addSubCategory()">
+
+							 <div class="form-group row">
+										<div class="col-lg-4">
+									    	<label>Category <span class="errormsg">*</span></label> 
+											<select class="form-control select2 input-lg2 " style="width:100%;"  name="category_id" id="category_id"  ng-model="subcategory.category_id" >
+													<option value="" selected> Select Category </option>
+													<option value="1"> Category 1</option>
+													<option value="2"> Category 2</option>
+													<option value="3"> Category 3</option>
+													<option value="4"> Category 4</option>
+													<option value="5"> Category 5</option>
+													<option value="6"> Category 6</option>
+													<option value="7">Category 7</option>
+												
+								
+													 
+												</select>
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>	
+										
+									
+ 						<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+							<label>Sub-Category Name <span class="errormsg">*</span></label>
+							<div class="form-group input-group ">
+								<input class="form-control" placeholder="Enter Sub-Category Name" name="sub_category_name" ng-model="subcategory.sub_category_name" id="sub_category_name" type="text">
+								
+
+							</div>
+							<p class="errormsg" ng-show="batchIDError == 1">{{batchIDMsg}}</p>
+						</div>
+
+										
+								
+										<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+											<label> Sub-Category Code  <span class="errormsg">*</span></label> 
+											<input class="form-control" placeholder="Enter Sub-Category Code" name="sub_category_code"  ng-model="subcategory.sub_category_code" id="sub_category_code" type="text">
+										
+										</div>
+									
+										
+								</div>
+								   <div class="form-group row">			
+						
+								<div class="col-lg-4"  >
+									    	<label>Description</label> 
+											<input class="form-control" placeholder="Enter Description" name="sub_category_desc" ng-model="subcategory.sub_category_desc" id="sub_category_desc" type="text">
+											<p class="errormsg" ng-show="courseTitleError == 1">{{courseTitleMsg}}</p>
+										</div>
+											
+										
+							</div>	
+									
+					
+			
+											<div class="form-group row" style="margin-top:15px;">
+
+												<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+													<button type="submit"  class="btn btn-md btn-success btn-block">
+														Submit  </button>
+												</div>
+
+											</div>
+
+
+
+										</form>
+
+
+					</div>
+							</form>			
+								
+								
+								
+								</div>
+											
+						</div>
+					</div>
+				</div>
+		
+
+
+
+<!-- Bootstrap  JavaScript-->
+	<!--<script src="vendor/jquery/jquery.min.js"></script>-->
+	<script src="<%=request.getContextPath() %>/resources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Core  JavaScript-->
+	<script src="<%=request.getContextPath() %>/resources/admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+	<%-- <script src="<%=request.getContextPath() %>/resources/admin/js/main.js"></script> --%>
+
+	<!-- Custom scripts for all pages-->
+	<script src="<%=request.getContextPath() %>/resources/admin/js/sb-admin-2.min.js"></script>
+	
+	
+	<script src="<%=request.getContextPath() %>/resources/admin/js/toastr.min.js"></script>
+
+	<!--inputmask-->
+	<script src="<%=request.getContextPath() %>/resources/admin/js/bootstrap-inputmask.js"></script>
+
+	<!-- Page level plugins -->
+	<!--<script src="vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>-->
+
+	<!-- Page level custom scripts -->
+	<!--<script src="js/demo/datatables-demo.js"></script>-->
+
+
+
+	<!--***********************************-->
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script>
+			$('#myModal').on('hidden', function()
+					{
+						document.location.reload();
+					})
+		</script>
+<script type="text/javascript">
+$('.clockpicker').clockpicker({
+    placement: 'bottom',
+    align: 'left',
+    donetext: 'Done',
+    autoclose: true,
+    	afterDone: function() {
+            console.log("after done");
+        }
+});
+</script>
+<script>
+$(document).ready(function () {
+	// create DateTimePicker from input HTML element
+	$("#fromdatetimepicker").kendoDatePicker({
+		format: "dd/MM/yyyy",
+		value: new Date(),
+		dateInput: true
+	});
+	});
+
+
+	$(document).ready(function () {
+	// create DateTimePicker from input HTML element
+	$("#fromdatetimepicker1").kendoDatePicker({
+		format: "dd/MM/yyyy",
+		
+		dateInput: true
+	});
+	});
+	$(document).ready(function () {
+		// create DateTimePicker from input HTML element
+		$("#fromdatetimepicker2").kendoDatePicker({
+			format: "dd/MM/yyyy",
+			
+			dateInput: true
+		});
+		});
+	$(document).ready(function () {
+		// create DateTimePicker from input HTML element
+		$("#fromdatetimepicker3").kendoDatePicker({
+			format: "dd/MM/yyyy",
+			
+			dateInput: true
+		});
+		});
+
+
+</script>
+
+</body>
+
+</html>
+
+///////////////////////////////////////////// js //////////////////////////////////////////////////////////////
+
+app.controller('SubCategoryCtrl', function($scope, $http, $window, $filter,
+		$location, $timeout) {
+	var baseUrl = $location.protocol() + "://" + location.host + u;
+
+
+	$scope.addSubCategory = function(){
+		var link = baseUrl+'addSubCategory';		
+		
+		$http({url: link, method: "POST", data: $scope.subcategory}).success(function(data, status, headers, config) {
+			$scope.subcategory = data;			
+		  location.reload(true); 
+			}).error(function(data, status, headers, config) {
+				$scope.subcategory = "Response Fail";
+			});
+		}
+
+	$scope.subcategorylist = function(){
+		var link = baseUrl+'getAllSubCategoryName';  
+		
+		$http.get(link).success(function(data, status, headers, config) {
+			$scope.getAllMemberNameList = data;
+			
+		}).error(function(data, status, headers, config) {
+			$scope.getAllMemberNameList = "Response Fail";
+		});
+		
+	}
+	
+$scope.getSubCategoryName = function(sub_category_id){
+		
+		var link = baseUrl+'getSubCategoryById?sub_category_id='+sub_category_id;	
+
+		$http.get(link).success(function(data, status, headers, config) {			
+			$scope.subcategory_id=category_id;
+			$scope.subcategory = data;							
+		}).error(function(data, status, headers, config) {
+			$scope.category = "Response Fail";
+		});
+		
+	};
+	
+	
+	
+	$scope.editCategory = function(category_id){
+		
+	var link = baseUrl+'editCategoryName?category_id='+category_id;	
+		console.log(link);
+		
+		$http({url: link, method: "POST", data: $scope.category}).success(function(data, status, headers, config) {
+			$scope.category_id=category_id;
+			console.log($scope.category_id);
+			console.log($scope.category);
+			$scope.category= data;			
+		
+			}).error(function(data, status, headers, config) {
+				$scope.category = "Response Fail";
+			});
+		
+	};
+
+	
+	$scope.deleteCategory= function(category_id) {
+		var link = baseUrl+'deleteCategory?category_id='+category_id;
+		
+		$http['delete'](link).success(function(data, status, headers, config) {
+			$scope.category_id=category_id;
+			$scope.deleteCategory = data;			
+		  location.reload(true); 
+			}).error(function(data, status, headers, config) {
+				$scope.deleteCategory = "Response Fail";
+			});
+	}
+	
+	
+
+	
+});
+
+///////////////////////////////////////////// MOdel //////////////////////////////////////////////////////////////
+
+public class SubCategory {
+	
+	private int sub_category_id;
+	private int category_id;
+	private String sub_category_name;
+	private String sub_category_code;
+	private String sub_category_desc;
+	private String status;
+	private int createdBy;
+	private String createdDate;
+	private String ipAddress;
+/////////////////////////////////////////////  DAo //////////////////////////////////////////////////////////////
+public String addSubCategory(SubCategory m);
+	 List<SubCategory> getAllSubCategory();
+	 SubCategory getSubCategoryById(int sub_category_id);
+	 String editSubCategory(SubCategory m);
+	  void deleteSubCategory(int sub_category_id);
+	  List<SubCategory> getSubCategoryByPage(int pagesize, int startindex);
+}
+
+///////////////////////////////////////////// Dao Impl //////////////////////////////////////////////////////////////
+
+package com.ui.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import com.ui.dao.SubCategoryDAO;
+import com.ui.model.Category;
+import com.ui.model.SubCategory;
+
+public class SubCategoryDAOImpl implements SubCategoryDAO{
+
+	@Autowired
+    private DataSource dataSource;
+    public void setDataSource(DataSource dataSource)
+    {
+        this.dataSource = dataSource;
+    }
+    JdbcTemplate jdbcTemplate;
+
+    private static final Logger logger = LoggerFactory.getLogger(MasterMemberPlanDAOImpl.class);
+    
+	@Override
+	public String addSubCategory(SubCategory m) {
+		// TODO Auto-generated method stub
+		logger.info("***** Add Sub Category DAO Impl*****");
+	       String sql = "insert into subcategory (category_id,sub_category_code,sub_category_name,sub_category_desc,status,created_by,ip_address) values (?,?,?,?,?,?,?)";
+
+	       Connection conn = null;
+	       
+	       try
+	       {
+	   
+	       	conn = dataSource.getConnection();
+	           PreparedStatement ps = conn.prepareStatement(sql);
+	          
+	         
+	           ps.setInt(1, m.getCategory_id());  
+	           ps.setString(2, m.getSub_category_code());
+				ps.setString(3, m.getSub_category_name());
+				ps.setString(4, m.getSub_category_desc());
+				ps.setString(5, m.getStatus());
+				ps.setInt(6, m.getCreatedBy());
+				ps.setString(7, m.getIpAddress());
+					
+
+	         
+	           ps.executeUpdate();
+	       }
+	       catch (SQLException e)
+	       {
+	           throw new RuntimeException(e);
+	       }
+	       finally
+	       {
+	           if (conn != null)
+	           {
+	               try
+	               {
+	                   conn.close();
+	               }
+	               catch (SQLException e) {}
+	           }
+	       }
+	       return "Success";
+	   }
+
+	@Override
+	public List<SubCategory> getAllSubCategory() {
+		  logger.info("+++++ getAllSubCategory NAME +++++");
+		  
+		    List<SubCategory> mmp = new ArrayList<SubCategory>();
+		    String s = "y";
+		    String sql = "select category_id,sub_category_id,sub_category_code,sub_category_name,sub_category_desc from subcategory where status=? ";
+		    Connection conn = null;
+		    try {
+		        conn = dataSource.getConnection();
+		        PreparedStatement ps = conn.prepareStatement(sql);
+		        ps.setString(1, s);
+		        SubCategory m = null;
+		        ResultSet rs = ps.executeQuery();
+		        while (rs.next()) {
+		            m = new SubCategory();
+		            
+		            m.setCategory_id(rs.getInt("category_id"));
+		            m.setSub_category_id(rs.getInt("sub_category_id"));
+		            m.setSub_category_code(rs.getString("sub_category_code"));
+		            m.setSub_category_name(rs.getString("sub_category_name"));
+		            m.setSub_category_desc(rs.getString("sub_category_desc"));
+		          
+		       
+		            mmp.add(m);
+		        }
+		        rs.close();
+		        ps.close();
+		        return mmp;
+		    } catch (SQLException e) {
+		        throw new RuntimeException(e);
+		    } finally {
+		        if (conn != null) {
+		            try {
+		                conn.close();
+		            } catch (SQLException e) {
+		            }
+		        }
+		    }
+		  }
+
+	@Override
+	public SubCategory getSubCategoryById(int sub_category_id) {
+		SubCategory m = null;
+		String sql = "SELECT  category_id ,sub_category_id ,sub_category_code,sub_category_name,sub_category_desc FROM subcategory where sub_category_id=?";
+		
+		Connection conn = null;
+		try {
+			conn = dataSource.getConnection();
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, sub_category_id);
+			ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+			m = new SubCategory();
+			
+			
+			   	m.setCategory_id(rs.getInt("category_id"));
+			 	m.setSub_category_id(rs.getInt("sub_category_id"));
+	            m.setSub_category_code(rs.getString("sub_category_code"));
+	            m.setSub_category_name(rs.getString("sub_category_name"));
+	            m.setSub_category_desc(rs.getString("sub_category_desc"));
+	          
+		
+		}
+		rs.close();
+		ps.close();
+		
+		return m;
+	} 
+		catch (SQLException e) {
+		
+			throw new RuntimeException(e);
+		} 
+			finally {
+		if (conn != null) {
+			try {
+					conn.close();
+				} catch (SQLException e) {
+			}
+		  }
+		}
+
+	}
+
+	@Override
+	public String editSubCategory(SubCategory m) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void deleteSubCategory(int category_id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<SubCategory> getSubCategoryByPage(int pagesize, int startindex) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
+
+///////////////////////////////////////////// Controller //////////////////////////////////////////////////////////////
+
+
+package com.ui.controller;
+
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.ui.dao.SubCategoryDAO;
+import com.ui.model.Category;
+import com.ui.model.SubCategory;
+
+@RestController
+public class SubCategoryController {
+
+	
+	@Autowired
+	SubCategoryDAO subcategoryDAO;
+	
+	 private static final Logger logger = LoggerFactory.getLogger(MasterMemberPlanController.class);
+	 
+	 @PostMapping("addSubCategory")
+	    public String addSubCategory(@RequestBody SubCategory subcategory, HttpServletRequest request, HttpSession session)
+	 
+	    {
+			 logger.info("***** addSubCategory *****");
+	        String result = "";
+	        int  userid = Integer.parseInt(session.getAttribute("adminuserid").toString());    
+	        System.out.println("============================================================="+userid);
+	        String ip = request.getHeader("X-FORWARDED-FOR");
+	        if (ip == null) {
+	            ip = request.getRemoteAddr();
+	        }
+
+	        String s = "y";
+
+	        subcategory.setCreatedBy(userid);
+	        subcategory.setIpAddress(ip);
+	        subcategory.setStatus(s);
+
+	        result = subcategoryDAO.addSubCategory(subcategory);
+	  
+	        return result;
+	    }
+	 
+	 @GetMapping(value = "/getAllSubCategoryName")
+	  public List<SubCategory> getSubCategory(HttpServletRequest request) {
+	      logger.info("***** getAllSubCategoryName*****");
+	      return subcategoryDAO.getAllSubCategory();
+	  }
+	 
+	 @GetMapping(value = "/getSubCategoryById")
+	  public SubCategory getSubCategoryById(int sub_category_id, HttpServletRequest request) {
+	      logger.info("*****  getSubCategoryById *****");
+	      return subcategoryDAO.getSubCategoryById(sub_category_id);
+	  }
+	 
+}
+
+
