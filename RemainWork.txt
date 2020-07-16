@@ -1,3 +1,33 @@
+ 1)  Membership 
+		1.tenure set 
+		2.Image crop and Upload
+		3.Mobile & password
+		4.Update User Detais
+	
+2) Family Details: 
+		
+		1.Family number Generate
+		2. Relation Name Display in table
+		3. Image Upload
+		4.Update Family Details
+		5.Mobile & Password
+3) Personal Information :
+
+		1.Insert Name Of Club
+		2.Multiple select club and store
+		3.same choice insert and multiple select.
+		4. Update Personal Information
+		
+4) Payment Details page 
+
+5) Barcode & Qr Code Remain
+
+
+Update membership plan
+ 
+----------------------------------------------------------------------------------
+
+ 
  [1] Start date & End date change with tenuare
  [2] Middle name Not requried 
  [3] Image Croping and upload & save it.
@@ -13,3 +43,5 @@
  [13] Click to user table and update user register form.
  [14] Tax select and calculate the GST aith Plan Amount .
  [15] Maintain All database.
+
+
