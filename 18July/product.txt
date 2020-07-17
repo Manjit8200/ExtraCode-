@@ -3,22 +3,30 @@
 	$scope.InsertProductTax = function(product_id) {
 
 		var link = baseUrl+'InsertProductTax?product_id='+$scope.product_id+'&tax_type='+$scope.tax_type+'&tax_value='+$scope.tax_value;		
-			alert(link);
+			
 					$http.post(link).success(function(data, status, headers, config) {
 						$scope.product.product_id=product_id;
 						$scope.InsertProductTax = data;
+						
+						var link = baseUrl+'getAllProductTaxName?product_id='+$scope.product_id;
+						alert(link);		
+						$http.get(link).success(function(data, status, headers, config) {		
+						$scope.product_id=product_id;
+						$scope.productTax = data;	
+		});
 
 					}).error(function(data, status, headers, config) {
 						 $scope.InsertProductTax = "Response Fail";
 					});
+				
+					
 	}
-  
   
   \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
   
   div class="col-md-2">
 													<div class="form-group"><br>
-														<a ng-click="InsertProductTax(item.product_id) || getProductTax(item.product_id) " class="btn btn-primary" style="color:white;"><span class="fa fa-plus" style="font-size: 14px;"></span>&nbsp;Add</a>
+														<a ng-click="InsertProductTax(item.product_id)" class="btn btn-primary" style="color:white;"><span class="fa fa-plus" style="font-size: 14px;"></span>&nbsp;Add</a>
 													</div>
 											</div>	
                       
@@ -43,7 +51,7 @@
 	      Product m1 = new Product();
 	      	
 	       	m1.setTax_type(tax_type);
-	       	m1.setTax_type(tax_type);
+	       	m1.setTax_value(tax_value);
 	       	m1.setProduct_id(product_id);
 	      	m1.setCreatedBy(userid);
 	        m1.setIpAddress(ip);
