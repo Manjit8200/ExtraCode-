@@ -1,0 +1,58 @@
+/////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\   js
+
+	$scope.InsertProductTax = function(product_id) {
+
+		var link = baseUrl+'InsertProductTax?product_id='+$scope.product_id+'&tax_type='+$scope.tax_type+'&tax_value='+$scope.tax_value;		
+			alert(link);
+					$http.post(link).success(function(data, status, headers, config) {
+						$scope.product.product_id=product_id;
+						$scope.InsertProductTax = data;
+
+					}).error(function(data, status, headers, config) {
+						 $scope.InsertProductTax = "Response Fail";
+					});
+	}
+  
+  
+  \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+  
+  div class="col-md-2">
+													<div class="form-group"><br>
+														<a ng-click="InsertProductTax(item.product_id) || getProductTax(item.product_id) " class="btn btn-primary" style="color:white;"><span class="fa fa-plus" style="font-size: 14px;"></span>&nbsp;Add</a>
+													</div>
+											</div>	
+                      
+                      
+      \\\\\\\\\\\\\\\\\\\\\
+      
+      
+      	 @PostMapping("/InsertProductTax")
+	 public String addProductTax1(int product_id,int tax_type,float tax_value, String status,String createdDate, String ipAddress,
+			  HttpServletRequest request, HttpSession session) {
+				
+		 logger.info("*****  addProductTax  *****");
+	      String result1 = "";
+	      int  userid = Integer.parseInt(session.getAttribute("adminuserid").toString());    
+	      System.out.println("============================================================="+userid);
+	      String ip = request.getHeader("X-FORWARDED-FOR");
+	      if (ip == null) {
+	          ip = request.getRemoteAddr();
+	      }
+	      String s = "y";
+	      
+	      Product m1 = new Product();
+	      	
+	       	m1.setTax_type(tax_type);
+	       	m1.setTax_type(tax_type);
+	       	m1.setProduct_id(product_id);
+	      	m1.setCreatedBy(userid);
+	        m1.setIpAddress(ip);
+	        m1.setStatus(s);
+	        
+			
+		result1=productnDao.addProductTaxData(m1);
+			
+		 return result1;
+		 
+	}
+
