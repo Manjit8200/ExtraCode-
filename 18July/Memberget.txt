@@ -1,0 +1,69 @@
+@Override
+	public MasterMemberRegister getRegisterMember(int member_id) {
+		// TODO Auto-generated method stub
+		
+		
+	    logger.info("+++++ GET MasterMember  +++++"   );
+	   
+	    String s = "y";
+	    String sql = "SELECT * FROM master_member_register WHERE member_id=?";
+	   
+	  
+	    Connection conn = null;
+	    try {
+	        conn = dataSource.getConnection();
+	        PreparedStatement ps = conn.prepareStatement(sql);
+	        
+	        ps.setInt(1, member_id);
+	      
+	        MasterMemberRegister m = null;
+	        ResultSet rs = ps.executeQuery();
+	        while (rs.next()) {
+	        	   m = new MasterMemberRegister();
+		            m.setSequence(rs.getInt("sequence"));
+		           m.setPlan_type(rs.getString("plan_type"));
+		           
+		           m.setMember_id(rs.getInt("member_id"));
+		             m.setPlan_id(rs.getInt("plan_id"));
+		             
+		             m.setTenure_year(rs.getInt("tenure_year"));
+			       
+		             m.setMembership_number(rs.getString("membership_number"));
+		            m.setMembership_barcode(rs.getString("membership_barcode"));
+					 m.setMembership_qrcode(rs.getString("membership_qrcode"));
+		             m.setStart_date(rs.getString("start_date"));
+		             m.setEnd_date(rs.getString("end_date"));
+		             m.setMember_firstname(rs.getString("member_firstname"));
+		             m.setMember_middlename(rs.getString("member_middlename"));
+		             m.setMember_lastname(rs.getString("member_lastname"));
+		             m.setAddress_line_1(rs.getString("address_line_1"));
+		             m.setAddress_line_2(rs.getString("address_line_2"));
+		             m.setAddress_line_3(rs.getString("address_line_3"));
+		             m.setMember_country_id(rs.getInt("member_country_id"));
+			         m.setMember_state_id(rs.getInt("member_state_id"));
+			         m.setMember_city(rs.getString("member_city"));
+		             m.setPincode(rs.getInt("pincode"));
+		             m.setMember_image(rs.getString("member_image"));
+		             m.setMember_phone(rs.getString("member_phone"));
+		             m.setMember_mobile_no(rs.getString("member_mobile_no"));
+		             m.setMember_email(rs.getString("member_email"));
+		             m.setMember_password(rs.getString("member_password"));
+		           
+	        	
+	        }
+	        rs.close();
+	        ps.close();
+	        return m;
+	    } catch (SQLException e) {
+	        throw new RuntimeException(e);
+	    } finally {
+	        if (conn != null) {
+	            try {
+	                conn.close();
+	            } catch (SQLException e) {
+	            }
+	        }
+	    }
+	 
+
+	}
