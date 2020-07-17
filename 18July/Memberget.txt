@@ -67,3 +67,30 @@
 	 
 
 	}
+	
+	///////////////////////////////////////////////////////////////   Family By Id
+	
+	
+	            m.setMember_id(rs.getInt("member_id"));
+		            m.setMember_id(rs.getInt("members_family_id"));
+		            m.setMember_family_first_name(rs.getString("member_family_first_name"));
+		            m.setMember_family_last_name(rs.getString("member_family_last_name"));
+		            m.setMember_family_type_of_relation(rs.getInt("member_family_type_of_relation"));
+		            
+		            m.setMember_family_gender(rs.getInt("member_family_gender"));
+			           
+			           m.setMember_family_date_of_birth(rs.getString("member_family_date_of_birth"));
+			           m.setMember_family_blood_group(rs.getInt("member_family_blood_group"));         
+			           m.setMember_family_image(rs.getString("member_family_image"));
+			           m.setMember_family_email(rs.getString("member_family_email"));
+			           m.setMember_family_mobile_no(rs.getString("member_family_mobile_no"));  	
+			           m.setMember_family_phone(rs.getString("member_family_phone"));
+				       m.setMember_family_password(rs.getString("member_family_password"));
+				       m.setMember_family_address1(rs.getString("member_family_address1"));
+			           m.setMember_family_address2(rs.getString("member_family_address2"));
+			           m.setMember_family_address3(rs.getString("member_family_address3"));
+			           m.setMember_family_pincode(rs.getInt("member_family_pincode"));
+			           m.setMember_family_coutry_id(rs.getInt("member_family_coutry_id"));
+			           m.setMember_family_state_id(rs.getInt("member_family_state_id"));
+			           m.setMember_family_city(rs.getString("member_family_city"));
+			           m.setFamily_membership_no(rs.getString("family_membership_no"));
