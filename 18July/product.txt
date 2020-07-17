@@ -63,4 +63,53 @@
 		 return result1;
 		 
 	}
+\||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||   Delete Product Tax                     |||||||||||||||||||||||||||||||||||||||||||||
+
+ 	<td> <center>
+														<a ng-click="deleteProductTax(item.product_id)" style="cursor: pointer;" class="btn btn-danger">
+															<i class="fa fa-trash" style="color:white;" aria-hidden="true" data-toggle="tooltip" ></i>
+														</a>	</center></td>
+		\\\\\\\\\\\\\\\\\\\\\\\\\\ js												
+		$scope.deleteProductTax = function(product_id) {
+		
+		var link = baseUrl+'deleteProductTax?product_id='+product_id;
+		
+		$http['delete'](link).success(function(data, status, headers, config) {
+			$scope.product_id=product_id;
+			$scope.deleteProductTax = data;			
+		  location.reload(true); 
+			}).error(function(data, status, headers, config) {
+				$scope.deleteProductTax = "Response Fail";
+			});
+	};
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\											
+													
+			@Override
+	public void deleteProductTax(int product_id) {
+		  logger.info("+++++ DELETE product Tax +++++");
+		    String status = "n";
+		    String sql = "update product_tax set status=? where product_id=?";
+		    Connection conn = null;
+		    try {
+		        conn = dataSource.getConnection();
+		        PreparedStatement ps = conn.prepareStatement(sql);
+		        ps.setString(1, status);
+		        ps.setInt(2, product_id);
+		        ps.executeUpdate();
+		    } catch (SQLException e) {
+		        throw new RuntimeException(e);
+		    } finally {
+		        if (conn != null) {
+		            try {
+		                conn.close();
+		            } catch (SQLException e) {
+		            }
+		        }
+		    }
+		    
+		  }										
+													
+\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+ void deleteProductTax(int product_id);
 
