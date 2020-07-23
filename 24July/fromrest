@@ -12,3 +12,9 @@
 									</h6>
 								</a>
   =============================================
+SELECT mr.member_id,mr.membership_barcode,mr.membership_barcode,mp.membership_plan_id,mr.membership_number,
+member_firstname,member_lastname, mp.plan_name,mr.plan_id 
+FROM master_member_register mr
+LEFT JOIN  membership_plans mp ON mp.membership_plan_id = mr.plan_id
+WHERE mr.status='y'
+		   
