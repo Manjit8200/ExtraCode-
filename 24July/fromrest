@@ -17,4 +17,8 @@ member_firstname,member_lastname, mp.plan_name,mr.plan_id
 FROM master_member_register mr
 LEFT JOIN  membership_plans mp ON mp.membership_plan_id = mr.plan_id
 WHERE mr.status='y'
+=====================================	
+SELECT members_family_id,member_id,family_member_barcode,family_member_qrcode,
+member_family_first_name,member_family_last_name,family_membership_no
+ FROM members_family_details WHERE member_id=42
 		   
