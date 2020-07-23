@@ -1,0 +1,14 @@
+	$scope.formreset = function(){
+	
+	document.getElementById("myFormProduct").reset();
+	}
+	=============================================================
+  	<div class="card shadow mb-4" >
+								<!-- Card Header - Accordion -->
+								<a href="#collapseCardExample" class="d-block card-header py-3"
+									data-toggle="collapse" role="button" aria-expanded="true"
+									aria-controls="collapseCardExample" ng-click="formreset()">
+									<h6 class="m-0 font-weight-bold text-light">Add Product Details
+									</h6>
+								</a>
+  =============================================
